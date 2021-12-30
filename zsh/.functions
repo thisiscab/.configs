@@ -1,0 +1,75 @@
+#!/bin/zsh
+
+# ############################## #
+#       Generic Aliases
+# ############################## #
+
+zshperf() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+# `pping` with no arguments ping the IP 8.8.8.8 (usefull for basic internet connection test),
+# otherwise ping the given IP. If the IP is incomplete, it is concat with the default
+# prefix 192.168.1 allowing easy local ping (eg ping 3.12 => 192.168.3.12)
+function pping() {
+        ip4regex='^[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+$'
+        ip3regex='^[0-9]+[.][0-9]+[.][0-9]+$'
+        ip2regex='^[0-9]+[.][0-9]+$'
+        ip1regex='^[0-9]+$'
+        host=$@
+        if [ $# -eq 0 ]; then
+                host="8.8.8.8"
+        elif [[ $@ =~ $ip4regex ]]; then
+                host="$@"
+        elif [[ $@ =~ $ip3regex ]]; then
+                host="192.$@"
+        elif [[ $@ =~ $ip2regex ]]; then
+                host="192.168.$@"
+        elif [[ $@ =~ $ip1regex ]]; then
+                host="192.168.1.$@"
+        fi
+        ping $host
+}
+
+# ############################## #
+#       MacOS Aliases
+# ############################## #
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    function take() {
+        mkdir -p $1
+        cd $1
+    }
+
+    function o() {
+        if [ $# -eq 0 ]; then
+            open .
+        else
+            open "$@"
+        fi
+    }
+fi
+
+# ############################## #
+#       Generic Git Aliases
+# ############################## #
+
+function git_current_branch() {
+  local ref
+  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ret=$?
+  if [[ $ret != 0 ]]; then
+    [[ $ret == 128 ]] && return  # no git repo.
+    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+  fi
+  echo ${ref#refs/heads/}
+}
+
+function work_in_progress() {
+  if $(git log -n 10 2>/dev/null | grep -q -c "\-\-wip\-\-"); then
+    echo "There is a commit with WIP! Do rebase you lazy butt!"
+  else
+    echo "Commit history clean, there are no WIP commits"
+  fi
+}

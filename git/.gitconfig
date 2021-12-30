@@ -1,0 +1,37 @@
+[gitlab]
+    user = cabouffard
+[github]
+    user = cabouffard
+[user]
+    email = cabouffard@gmail.com
+    name = Charles-Andre Bouffard
+    signingkey = 1162A03ABA4A3217
+[push]
+    default = simple
+    followTags = true
+[pull]
+    rebase = true
+[branch]
+    autosetuprebase = always
+[core]
+    autocrlf = false
+    excludesfile = ~/.gitignore
+[color]
+    ui = true
+[format]
+    pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+[commit]
+    template = ~/.git_commit_msg.txt
+    gpgsign = false
+[merge]
+    tool = vimdiff
+    ff = true
+    conflictstyle = diff3
+[mergetool "vimdiff3"]
+    cmd = vim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[status]
+    showUntrackedFiles = all
+[difftool]
+    prompt = false
+[diff]
+    tool = vimdiff

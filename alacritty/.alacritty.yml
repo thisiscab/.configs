@@ -1,0 +1,30 @@
+## Configuration for Alacritty, the GPU enhanced terminal emulator.
+
+window:
+  decorations: buttonless
+  startup_mode: Windowed
+
+# Font configuration (changes require restart)
+font:
+  # Normal (roman) font face
+  normal:
+    family: Menlo
+
+  # Bold font face
+  bold:
+    family: Menlo
+
+  # Italic font face
+  italic:
+    family: Menlo
+
+  # Point size
+  size: 12.0
+
+  use_thin_strokes: true
+
+# If `true`, bold text is drawn using the bright color variants.
+draw_bold_text_with_bright_colors: true
+
+# Live config reload (changes require restart)
+live_config_reload: true
