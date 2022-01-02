@@ -49,7 +49,7 @@ setopt listpacked           # variable col widths (takes up less space)
 # setopt auto_resume
 # setopt auto_cd
 
-# autoload -Uz colors && colors
+autoload -Uz colors && colors
 
 source $HOME/.zsh-theme
 source $HOME/.aliases
