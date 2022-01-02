@@ -67,7 +67,7 @@ Plug 'sbdchd/neoformat'
 
 " Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 " " required by fugitive for :gbrowse
 Plug 'tpope/vim-rhubarb'

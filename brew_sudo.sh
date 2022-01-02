@@ -5,6 +5,7 @@ function brews() {
     brew "openssl"
     brew "libyaml" # should come after openssl
     brew "reattach-to-user-namespace"
+    brew "ripgrep"
     brew "zsh"
     brew "neovim"
     brew "tmuxinator"
