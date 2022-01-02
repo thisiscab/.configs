@@ -63,11 +63,17 @@ fi
 
 if [[ -f "$HOME/src/.configs_personal/zsh/.aliases_personal" ]]; then
   source $HOME/.aliases_personal
+fi
+
+if [[ -f "$HOME/src/.configs_personal/zsh/.functions_personal" ]]; then
   source $HOME/.functions_personal
 fi
 
-if [[ -f "$HOME/src/.configs_work/zsh/.alias_work" ]]; then
+if [[ -f "$HOME/src/.configs_work/zsh/.aliases_work" ]]; then
   source $HOME/.aliases_work
+fi
+
+if [[ -f "$HOME/src/.configs_work/zsh/.functions_work" ]]; then
   source $HOME/.functions_work
 fi
 
