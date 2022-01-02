@@ -30,27 +30,62 @@ set number
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'morhetz/gruvbox'
+" Attempt
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+" Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'onsails/lspkind-nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+
+Plug 'glepnir/lspsaga.nvim'
+Plug 'simrat39/symbols-outline.nvim'
+
+" Neovim Tree shitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
+" Snippets
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-dispatch'
+Plug 'gruvbox-community/gruvbox'
+
+" telescope requirements...
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" prettier
+Plug 'sbdchd/neoformat'
+
+" Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
-" required by fugitive for :gbrowse
+" " required by fugitive for :gbrowse
 Plug 'tpope/vim-rhubarb'
 Plug 'tomtom/tcomment_vim'
-" v Must come before vim-makdown
-Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
-" Plug 'iamcco/markdown-preview.nvim'
-" ^ Manually have to run: :call mkdp#util#install()
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'mattn/gist-vim'
-" Required for gist-vim
-Plug 'mattn/webapi-vim'
-" " end
+" " v Must come before vim-makdown
+" Plug 'godlygeek/tabular'
+" " Plug 'plasticboy/vim-markdown'
+" " Plug 'iamcco/markdown-preview.nvim'
+" " ^ Manually have to run: :call mkdp#util#install()
+" Plug 'christoomey/vim-tmux-navigator'
+" Plug 'mattn/gist-vim'
+" " Required for gist-vim
+" Plug 'mattn/webapi-vim'
+" " " end
 Plug 'rking/ag.vim'
-Plug 'w0rp/ale'
-Plug 'elzr/vim-json'
-Plug 'chrisbra/csv.vim'
+" Plug 'w0rp/ale'
+" Plug 'elzr/vim-json'
+" Plug 'chrisbra/csv.vim'
 
 call plug#end()
 
@@ -66,37 +101,11 @@ nnoremap :W <ESC>:w
 nnoremap :Q <ESC>:q
 
 " ----- Buffer Navigation -----
-    nmap <leader>l :bnext<CR>
-    " Move to the previous buffer
-    nmap <leader>h :bprevious<CR>
-    nmap <leader>bq :bp <BAR> bd #<CR>
-    nmap <leader>bp :b#<CR>
-
-" ----- VimAirline -----
-    let g:airline#extensions#ale#enabled = 1
-    let g:airline#extensions#tabline#enabled = 1      " Enable the list of buffers
-    let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-    let g:airline#extensions#tabline#formatter = 'default'
-
-" ----- CtrlP -----
-    " Search from the root directory
-    let g:ctrlp_working_path_mode = 'ra'
-
-    nmap <leader>sf :CtrlP<CR>
-    nmap <leader>sr :CtrlPMRU<CR>
-    nmap <leader>sl :CtrlP .<CR>
-    nmap <leader>sa :CtrlPMixed<CR>
-    " Search from all opened buffers
-    nmap <leader>sb :CtrlPBuffer<CR>
-
-" ----- Fugitive -----
-    nnoremap <silent> <leader>gs :Git<CR>
-    nnoremap <silent> <leader>gd :Gdiff<CR>
-    nnoremap <silent> <leader>gc :Git commit<CR>
-    nnoremap <silent> <leader>gb :Git blame<CR>
-    nnoremap <silent> <leader>gl :Gclog<CR>
-    nnoremap <silent> <leader>gw :GBrowse<CR>
-    nnoremap <silent> <leader>gp :Git push<CR>
+nmap <leader>l :bnext<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bp :b#<CR>
 
 if (has("termguicolors"))
   set termguicolors
