@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function setup() {
-    setVimPluginManager
+    #setVimPluginManager
     setDotFiles
 
-    setShell
-    setAsdfVersionManager
+    #setShell
+    #setAsdfVersionManager
 
-    configureMac
+    #configureMac
 }
 
 function setVimPluginManager() {
@@ -21,9 +21,9 @@ function configureMac() {
 function setShell() {
     case "$SHELL" in
     */zsh)
-    	;;
+        ;;
     *)
-    	chsh -s "/bin/zsh" "$USER"
+        chsh -s "/bin/zsh" "$USER"
     esac
 }
 
@@ -50,18 +50,18 @@ function setAsdfVersionManager() {
 
 function setDotFiles() {
     if [ -z $STOW_FOLDERS ]; then
-        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf")
+        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf" "git")
         ARRAY_LENGTH=${#STOW_FOLDERS[@]}
     fi
 
     for (( i=0; i<${ARRAY_LENGTH}; i++ ));
     do
- 	if [ "${STOW_FOLDERS[$i]}" == "tmuxinator" ]; then
- 		mkdir -p $HOME/.tmuxinator
- 		stow -t $HOME/.tmuxinator -d ${STOW_FOLDERS[$i]} tmuxinator
- 	else
-		stow -R -t $HOME ${STOW_FOLDERS[$i]}
-	fi
+        if [ "${STOW_FOLDERS[$i]}" == "tmuxinator" ]; then
+                mkdir -p $HOME/.tmuxinator
+                stow -t $HOME/.tmuxinator -d ${STOW_FOLDERS[$i]} tmuxinator
+        else
+                stow -R -t $HOME ${STOW_FOLDERS[$i]}
+        fi
     done
 
     if [[ -f "$HOME/src/.configs_personal/setup_user.sh" ]]; then

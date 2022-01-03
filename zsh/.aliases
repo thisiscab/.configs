@@ -12,6 +12,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias p2="python2"
     alias mux="tmuxinator"
     alias gpgkill="gpgconf --kill gpg-agent"
+    alias ag="rg"
     alias tmux='TERM=screen-256color tmux'
 
     # Directory Navigation

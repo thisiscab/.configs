@@ -72,13 +72,13 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
-    }, 
+    },
     {
         { name = 'buffer' },
     })
 })
 
-require("luasnip.loaders.from_vscode").lazy_load() 
+require("luasnip.loaders.from_vscode").lazy_load()
 
 local lspconfig = require('lspconfig')
 
