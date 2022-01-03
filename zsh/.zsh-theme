@@ -1,10 +1,10 @@
 # Modified version of arrow
 # for code in {000..255}; do print -P -- "$code: %F{$code}Color%f"; done
 
-NCOLOR="011"
+NCOLOR="011" # or yellow
 
 PROMPT='%F{$NCOLOR}%c ➤ %{$reset_color%}'
-RPROMPT='%F{$NCOLOR}%p $(git_prompt_info)%{$reset_color%}'
+RPROMPT='%F{$NCOLOR} $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="git:"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
