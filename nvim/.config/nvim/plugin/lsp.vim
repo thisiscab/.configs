@@ -1,29 +1,24 @@
 set completeopt=menu,menuone,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+nnoremap <leader>cd :lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>ci :lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>csh :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>crr :lua vim.lsp.buf.references()<CR>
+nnoremap <leader>crn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>ch :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>csd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>cn :lua vim.lsp.diagnostic.goto_next()<CR>
 
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-
-nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
-nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <leader>grr :lua vim.lsp.buf.references()<CR>
-nnoremap <leader>grn :lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
-" nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
-" nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
-nnoremap <leader>gn :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap [d :lua vim.diagnostic.goto_prev()<CR>
+nnoremap ]d :lua vim.diagnostic.goto_next()<CR>
+nnoremap <leader>d :lua vim.diagnostic.setloclist()<CR>
 
 lua <<EOF
 local has_words_before = function()
-local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local luasnip = require("luasnip")
@@ -38,14 +33,6 @@ cmp.setup({
     },
 
     mapping = {
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ['<C-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -69,13 +56,15 @@ cmp.setup({
         end, { "i", "s" }),
     },
 
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-    },
-    {
-        { name = 'buffer' },
-    })
+    sources = cmp.config.sources(
+        {
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+        },
+        {
+            { name = 'buffer' },
+        }
+    )
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()

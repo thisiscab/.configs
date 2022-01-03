@@ -2,8 +2,9 @@
 set path+=**
 
 " Nice menu when typing `:find *.py`
-set wildmode=longest,list,full
-set wildmenu
+" set wildmode=longest,list,full
+" set wildmenu
+
 " Ignore files
 set wildignore+=*.pyc
 set wildignore+=*_build/*
@@ -38,8 +39,6 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 " Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'onsails/lspkind-nvim'
-Plug 'nvim-lua/lsp_extensions.nvim'
 
 Plug 'glepnir/lspsaga.nvim'
 Plug 'simrat39/symbols-outline.nvim'
@@ -50,6 +49,7 @@ Plug 'nvim-treesitter/playground'
 
 " Snippets
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 
 Plug 'mbbill/undotree'
@@ -77,12 +77,12 @@ Plug 'tomtom/tcomment_vim'
 " " Plug 'plasticboy/vim-markdown'
 " " Plug 'iamcco/markdown-preview.nvim'
 " " ^ Manually have to run: :call mkdp#util#install()
-" Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 " Plug 'mattn/gist-vim'
 " " Required for gist-vim
 " Plug 'mattn/webapi-vim'
 " " " end
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 " Plug 'w0rp/ale'
 " Plug 'elzr/vim-json'
 " Plug 'chrisbra/csv.vim'
@@ -94,8 +94,7 @@ let mapleader = " "
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 nnoremap <Leader>snr :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <leader>pwd :echo expand('%:p')<cr>
-nnoremap <Leader>sv <ESC>:so $MYVIMRC<CR>
-nnoremap <leader>ev :e ~/.vimrc<CR>
+nnoremap <Leader>sv <ESC>:so ~/.config/nvim/init.vim<CR><CR>
 
 nnoremap :W <ESC>:w
 nnoremap :Q <ESC>:q
@@ -114,9 +113,3 @@ if (has("termguicolors"))
 endif
 set background=dark
 colorscheme gruvbox
-
-highlight RedGroup ctermfg=1
-highlight GreenGroup ctermfg=2
-highlight YellowGroup ctermfg=3
-match Redgroup '\<TODO\|FIXME\>'
-2match GreenGroup '\<NOTE\>'
