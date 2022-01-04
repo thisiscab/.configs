@@ -83,6 +83,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'mattn/webapi-vim'
 " " " end
 " Plug 'rking/ag.vim'
+Plug 'jremmen/vim-ripgrep'
 " Plug 'w0rp/ale'
 " Plug 'elzr/vim-json'
 " Plug 'chrisbra/csv.vim'
