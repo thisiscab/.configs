@@ -2,7 +2,7 @@
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # General
-    alias szsh="exec zsh"
+    alias szsh="source ~/.zshrc"
     alias evim="$EDITOR ~/.config/nvim/init.vim"
     alias ezsh="$EDITOR ~/.zshrc"
     alias vim="nvim"
@@ -14,6 +14,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gpgkill="gpgconf --kill gpg-agent"
     alias ag="rg"
     alias tmux='TERM=screen-256color tmux'
+    alias ls='ls --color=auto'
     alias lsa='ls -a'
     alias lsf='ls -aF'
 

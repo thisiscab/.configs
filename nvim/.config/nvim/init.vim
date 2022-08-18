@@ -28,6 +28,7 @@ set number
     set softtabstop=4       " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
     set tabstop=8           " real tabs should be 8, and they will show with set list on
     set complete+=kspell    " Allow spelling completing when spell is activated
+    set completeopt=menu,menuone,noselect
 
 call plug#begin('~/.vim/plugged')
 
@@ -64,11 +65,17 @@ Plug 'gruvbox-community/gruvbox'
 
 " prettier
 Plug 'sbdchd/neoformat'
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'hashivim/vim-terraform'
+let g:terraform_fmt_on_save=1
+let g:terraform_unindent_heredoc=1
 
 " Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
 " " required by fugitive for :gbrowse
 Plug 'tpope/vim-rhubarb'
 Plug 'tomtom/tcomment_vim'
@@ -95,17 +102,21 @@ let mapleader = " "
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 nnoremap <Leader>snr :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <leader>pwd :echo expand('%:p')<cr>
-nnoremap <Leader>sv <ESC>:so ~/.config/nvim/init.vim<CR><CR>
+nnoremap <Leader>e <ESC>:so ~/.config/nvim/init.vim<CR><CR>
+nnoremap <leader>cs :noh<CR>
 
 nnoremap :W <ESC>:w
 nnoremap :Q <ESC>:q
 
+" hrsh7th/nvim-cmp
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+
 " ----- Buffer Navigation -----
-nmap <leader>l :bnext<CR>
+nmap <leader>k :bnext<CR>
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
+nmap <leader>j :bprevious<CR>
+nmap <leader>l :b#<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
-nmap <leader>bp :b#<CR>
 
 if (has("termguicolors"))
   set termguicolors
@@ -114,3 +125,18 @@ if (has("termguicolors"))
 endif
 set background=dark
 colorscheme gruvbox
+
+augroup EditVim
+    autocmd!
+
+    " ----- Filetypes -----
+    au FileType gitcommit setlocal spell textwidth=72
+    au FileType markdown setlocal spell shiftwidth=2 softtabstop=2 tabstop=2
+    au FileType python set foldenable
+    au FileType ruby setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    au FileType yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+    au FileType sql setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+    au FileType typescript setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+    au FileType json setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    au FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2
+augroup END

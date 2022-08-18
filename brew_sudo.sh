@@ -14,6 +14,7 @@ function brews() {
     brew "gpg2"
     brew "asdf"
     brew "stow"
+    brew "fzf"
 
 EOF
 }

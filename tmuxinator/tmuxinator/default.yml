@@ -1,5 +1,5 @@
-name: "0"
-root: ~/src
+name: "default"
+root: ~/src/personal/tmp
 
 windows:
   - default:

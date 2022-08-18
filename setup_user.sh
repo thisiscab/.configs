@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function setup() {
-    #setVimPluginManager
+    setVimPluginManager
     setDotFiles
 
-    #setShell
-    #setAsdfVersionManager
+    setShell
+    setAsdfVersionManager
 
-    #configureMac
+    configureMac
 }
 
 function setVimPluginManager() {
@@ -39,24 +39,27 @@ function setAsdfVersionManager() {
     sh "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
     install_asdf_language "nodejs"
 
-    echo "Installing Python2.7.18 ..."
-    install_asdf_language "python" "2.7.18"
+    echo "Installing Python2.7 ..."
+    install_asdf_language "python" "2.7"
 
-    echo "Installing latest Python3.10.1 ..."
-    install_asdf_language "python" "3.10.1"
+    echo "Installing latest Python3.10 ..."
+    install_asdf_language "python" "3.10"
 
-    asdf global python 3.10.1 2.7.18
+    asdf global python 3.10 2.7
 }
 
 function setDotFiles() {
     if [ -z $STOW_FOLDERS ]; then
-        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf" "git")
+        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf" "git" ".bin")
         ARRAY_LENGTH=${#STOW_FOLDERS[@]}
     fi
 
     for (( i=0; i<${ARRAY_LENGTH}; i++ ));
     do
-        if [ "${STOW_FOLDERS[$i]}" == "tmuxinator" ]; then
+        if [ "${STOW_FOLDERS[$i]}" == ".bin" ]; then
+                mkdir -p $HOME/.bin
+                stow -t $HOME/.bin -d ${STOW_FOLDERS[$i]} .bin
+        elif [ "${STOW_FOLDERS[$i]}" == "tmuxinator" ]; then
                 mkdir -p $HOME/.tmuxinator
                 stow -t $HOME/.tmuxinator -d ${STOW_FOLDERS[$i]} tmuxinator
         else
@@ -64,13 +67,13 @@ function setDotFiles() {
         fi
     done
 
-    if [[ -f "$HOME/src/.configs_personal/setup_user.sh" ]]; then
-        sh $HOME/src/.configs_personal/setup_user.sh
-    fi
-
-    if [[ -f "$HOME/src/.configs_work" ]]; then
-        sh $HOME/src/.configs_work/setup_user.sh
-    fi
+    # if [[ -f "$HOME/src/.configs_personal/setup_user.sh" ]]; then
+    #     sh $HOME/src/.configs_personal/setup_user.sh
+    # fi
+    #
+    # if [[ -f "$HOME/src/.configs_work" ]]; then
+    #     sh $HOME/src/.configs_work/setup_user.sh
+    # fi
 }
 
 function install_asdf_plugin() {

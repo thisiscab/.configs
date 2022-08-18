@@ -1,13 +1,19 @@
+# Script to benchmark speed:
+# for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+
 # export GPG_TTY=$(tty)
 # export DIRSTACKSIZE=8
-export HISTSIZE=1000               # number of lines kept in history
-export SAVEHIST=1000               # number of lines saved in the history after logout
+export HISTSIZE=10000               # number of lines kept in history
+export SAVEHIST=10000               # number of lines saved in the history after logout
 export HISTFILE=~/.zsh_history     # location of history
 
 export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/.asdf/installs/ruby/3.0.1/lib/ruby/gems/3.0.0:$PATH
 export PATH=$HOME/.gem/ruby/3.0.0:$PATH
+export PATH=$HOME/Library/Python/3.9/bin:$PATH
 
 export EDITOR=nvim
 export LANG="C"
@@ -49,7 +55,10 @@ setopt listpacked           # variable col widths (takes up less space)
 # setopt auto_resume
 # setopt auto_cd
 
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
 autoload -Uz colors && colors
+autoload -Uz compinit && (compinit &)
 
 source $HOME/.zsh-theme
 source $HOME/.aliases
@@ -57,7 +66,8 @@ source $HOME/.functions
 
 source /usr/local/opt/asdf/libexec/asdf.sh
 
-if [ "$TMUX" = "" ]; then
+# tmux_running=$(pgrep tmux)
+if [[ -z $TMUX ]]; then
   tmuxinator default
 fi
 
@@ -77,11 +87,9 @@ if [[ -f "$HOME/src/.configs_work/zsh/.functions_work" ]]; then
   source $HOME/.functions_work
 fi
 
-# zmodload zsh/complist
 eval "$(direnv hook zsh)"
 
-# bindkey -v
-bindkey '^r' history-incremental-search-backward
-# bindkey -M menuselect '^[[Z' reverse-menu-complete
-# bindkey '^k' up-line-or-history
-# bindkey '^j' down-line-or-history
+function zvm_after_init() {
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  bindkey -s '^p' "tmux-sessionizer\n"
+}

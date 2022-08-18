@@ -9,6 +9,7 @@
 [push]
     default = simple
     followTags = true
+    autoSetupRemote = true
 [pull]
     rebase = true
 [branch]
@@ -35,3 +36,8 @@
     prompt = false
 [diff]
     tool = vimdiff
+    wsErrorHighlight = all
+[color "diff"]
+    whitespace = red reverse
+[safe]
+    directory = /usr/local/Homebrew
