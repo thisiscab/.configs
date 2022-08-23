@@ -2,7 +2,7 @@
 # for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
 
 # export GPG_TTY=$(tty)
-# export DIRSTACKSIZE=8
+export DIRSTACKSIZE=9
 export HISTSIZE=10000               # number of lines kept in history
 export SAVEHIST=10000               # number of lines saved in the history after logout
 export HISTFILE=~/.zsh_history     # location of history
@@ -44,11 +44,11 @@ setopt share_history # share hist between sessions
 setopt braceccl             # {a-d} expands to a b c d
 setopt always_to_end        # when completing from the middle of a word, move the cursor to the end of the word
 setopt complete_in_word     # allow completion from within a word/phrase
-# setopt autopushd            # automatically pushd directories on dirstack
-# setopt nopushdsilent        # print dirstack after each cd/pushd
-# setopt pushdminus           # pushd -N goes to Nth dir in stack
-# setopt pushdignoredups      # don't push dups on stack
-# setopt cdablevars           # blah=~/media/movies; cd blah; pwd => ~/media/movies
+setopt autopushd            # automatically pushd directories on dirstack
+setopt nopushdsilent        # print dirstack after each cd/pushd
+setopt pushdminus           # pushd -N goes to Nth dir in stack
+setopt pushdignoredups      # don't push dups on stack
+setopt cdablevars           # blah=~/media/movies; cd blah; pwd => ~/media/movies
 setopt correct              # try to correct spelling...
 setopt no_correctall        # ...only for commands, not filenames
 setopt listpacked           # variable col widths (takes up less space)

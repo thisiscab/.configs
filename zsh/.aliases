@@ -19,18 +19,24 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias lsf='ls -aF'
 
     # Directory Navigation
-    alias config="cd $HOME/src/.configs"
+    alias dk="cd ~/Desktop"
+    alias doc="cd ~/Documents"
+    alias dl="cd ~/Downloads"
+    alias odk="open ~/Desktop"
+    alias odoc="open ~/Documents"
+    alias odl="open ~/Downloads"
 
     # Stuff
     alias dud='du -d 1 -h'
     alias duf='du -sh *'
 
     # dir stack
-    alias dh='dirs -v'
+    alias ds='dirs -v'
 
-    # Other navigation stuff
+    # Other navigation stuf
     alias ..='cd ..'
     alias ...='cd ../..'
+    alias cdgr="cd $(git rev-parse --show-toplevel)"
 
     # alias motherbraincp="scp -i ~/.ssh/personal_rsa -P 666 first_floor.svg pi@192.168.0.183:/home/pi/"
     alias bfg="java -jar ~/.bin/bfg.jar"
@@ -46,6 +52,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Git Aliases
     alias wip='work_in_progress'
+    alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
+    alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
+
     alias g='git'
 
     alias ga='git add'
@@ -68,7 +77,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     alias gcb='git checkout -b'
     alias gcm='git checkout master'
-    alias gcd='git checkout develop'
+    # alias gcd='git checkout develop'
     alias gco='git checkout'
 
     alias gclean='git clean -fd'
@@ -87,6 +96,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ggpushf='ggpush --force-with-lease'
     alias ggpp='ggpull && ggpush'
 
+    alias glo="glom"
     alias glom="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
     alias gloma="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all"
     alias glos='git log --oneline --decorate --graph'
@@ -105,7 +115,4 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias grs='git reset --soft'
 
     alias gs='git status -sb'
-
-    alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
-    alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 fi
