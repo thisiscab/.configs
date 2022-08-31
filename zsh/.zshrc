@@ -91,5 +91,6 @@ eval "$(direnv hook zsh)"
 
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
   bindkey -s '^p' "tmux-sessionizer\n"
 }

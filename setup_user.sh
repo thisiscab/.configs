@@ -1,13 +1,16 @@
 #!/bin/bash
 
 function setup() {
-    setVimPluginManager
+    # setVimPluginManager
     setDotFiles
 
-    setShell
-    setAsdfVersionManager
+    # setShell
+    # setAsdfVersionManager
+    #
+    # mkdir -p src/personal/tmp
+    # configureMac
 
-    configureMac
+    # echo "Run $(brew --prefix)/opt/fzf/install"
 }
 
 function setVimPluginManager() {

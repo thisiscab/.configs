@@ -15,6 +15,7 @@ function brews() {
     brew "asdf"
     brew "stow"
     brew "fzf"
+    brew "zsh-vi-mode"
 
 EOF
 }

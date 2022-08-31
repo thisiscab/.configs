@@ -14,7 +14,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gpgkill="gpgconf --kill gpg-agent"
     alias ag="rg"
     alias tmux='TERM=screen-256color tmux'
-    alias ls='ls --color=auto'
+    # alias ls='ls --color=auto'
     alias lsa='ls -a'
     alias lsf='ls -aF'
 

@@ -1,6 +1,9 @@
 " hello front end masters
 set path+=**
 
+highlight MyGroup ctermfg=red
+syntax keyword MyGroup cout
+
 " Nice menu when typing `:find *.py`
 " set wildmode=longest,list,full
 " set wildmenu
@@ -140,3 +143,10 @@ augroup EditVim
     au FileType json setlocal shiftwidth=2 softtabstop=2 tabstop=2
     au FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2
 augroup END
+
+autocmd Syntax * syntax keyword GreenMarker NOTE note
+autocmd Syntax * syntax keyword YellowMarker TODO todo
+autocmd Syntax * syntax keyword RedMarker FIXME XXX fixme xxx
+highlight GreenMarker cterm=reverse ctermfg=108 ctermbg=235 gui=bold guifg=#8ec07c guibg=#282828
+highlight YellowMarker cterm=bold ctermfg=235 ctermbg=214 gui=bold guifg=#282828 guibg=#fabd2f
+highlight RedMarker cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
