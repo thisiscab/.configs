@@ -1,11 +1,11 @@
 [gitlab]
-    user = cabouffard
+    user = thisiscab
 [github]
-    user = cabouffard
+    user = thisiscab
 [user]
-    email = cabouffard@gmail.com
-    name = Charles-Andre Bouffard
-    signingkey = 1162A03ABA4A3217
+    email = me@thisis.com
+    name = CAB CAB
+    signingkey = 70AB926C37C29936
 [push]
     default = simple
     followTags = true
@@ -25,10 +25,10 @@
 [color]
     ui = true
 [format]
-    pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+    pretty = format:%C%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
 [commit]
     template = ~/.git_commit_msg.txt
-    gpgsign = false
+    gpgsign = true
 [merge]
     tool = vimdiff
     ff = true
@@ -50,3 +50,5 @@
     directory = /usr/local/Homebrew
 [delta]
     features = side-by-side line-numbers decorations
+[gpg]
+    program = /usr/local/bin/gpg
