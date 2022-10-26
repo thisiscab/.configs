@@ -36,10 +36,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Other navigation stuf
     alias ..='cd ..'
     alias ...='cd ../..'
-    alias cdgr="cd $(git rev-parse --show-toplevel)"
+    alias cdr="cd $(git rev-parse --show-toplevel)"
 
     # alias motherbraincp="scp -i ~/.ssh/personal_rsa -P 666 first_floor.svg pi@192.168.0.183:/home/pi/"
-    alias bfg="java -jar ~/.bin/bfg.jar"
+    # alias bfg="java -jar ~/.bin/bfg.jar"
 
     # Docker Compose
     alias dc='docker-compose'
@@ -115,4 +115,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias grs='git reset --soft'
 
     alias gs='git status -sb'
+
+    alias epoch='date +%s000'
+
+    alias codespell='codespell --config ~/.codespellrc'
+    alias cs='codespell'
 fi

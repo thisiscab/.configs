@@ -11,9 +11,6 @@ export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-export PATH=$HOME/.asdf/installs/ruby/3.0.1/lib/ruby/gems/3.0.0:$PATH
-export PATH=$HOME/.gem/ruby/3.0.0:$PATH
-export PATH=$HOME/Library/Python/3.9/bin:$PATH
 
 export EDITOR=nvim
 export LANG="C"
@@ -55,6 +52,7 @@ setopt listpacked           # variable col widths (takes up less space)
 # setopt auto_resume
 # setopt auto_cd
 
+export HOMEBREW_NO_ANALYTICS=1
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 autoload -Uz colors && colors
@@ -94,3 +92,4 @@ function zvm_after_init() {
 
   bindkey -s '^p' "tmux-sessionizer\n"
 }
+export PATH="/usr/local/opt/openjdk/bin:$PATH"

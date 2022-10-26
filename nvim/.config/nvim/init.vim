@@ -18,7 +18,7 @@ set wildignore+=**/ios/*
 set wildignore+=**/.git/*
 
 set clipboard+=unnamed
-set number
+set number relativenumber
 
 " ========== Text Formatting ==========
     set ignorecase          " case insensitive by default
@@ -85,9 +85,10 @@ Plug 'tomtom/tcomment_vim'
 " " v Must come before vim-makdown
 " Plug 'godlygeek/tabular'
 " " Plug 'plasticboy/vim-markdown'
-" " Plug 'iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim'
 " " ^ Manually have to run: :call mkdp#util#install()
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'digitaltoad/vim-pug'
 " Plug 'mattn/gist-vim'
 " " Required for gist-vim
 " Plug 'mattn/webapi-vim'

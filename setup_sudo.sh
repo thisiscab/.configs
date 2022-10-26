@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function setup() {
-    setupBrew
+    # setupBrew
 
     configureMac
 }

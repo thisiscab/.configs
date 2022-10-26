@@ -2,6 +2,7 @@
 
 function setup() {
     # setVimPluginManager
+    # setupBrew
     setDotFiles
 
     # setShell
@@ -53,7 +54,7 @@ function setAsdfVersionManager() {
 
 function setDotFiles() {
     if [ -z $STOW_FOLDERS ]; then
-        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf" "git" ".bin")
+        declare -a STOW_FOLDERS=("alacritty" "git" "nvim" "tmux" "tmuxinator" "zsh" "asdf" "git" ".bin" "codespell")
         ARRAY_LENGTH=${#STOW_FOLDERS[@]}
     fi
 
@@ -102,6 +103,28 @@ function install_asdf_language() {
     asdf install "$language" "$version"
     asdf global "$language" "$version"
   fi
+}
+
+function setupBrew() {
+    echo "Installing Homebrew ..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+    echo "Updating Homebrew ..."
+    brew update --force
+
+    echo "Installing Homebrew stuff ... "
+    /bin/bash ./brew_user.sh
+
+    if [[ -f "$HOME/src/.configs_personal" ]]; then
+        echo "Installing Personal Homebrew stuff ... "
+        /bin/bash /$HOME/src/.configs_personal/brew_user.sh
+    fi
+
+    # if [[ -f "$HOME/src/.configs_work" ]]; then
+    #     echo "Installing Work Homebrew stuff ... "
+    #     /bin/bash /$HOME/src/.configs_work/brew_sudo.sh
+    # fi
+
 }
 
 setup
