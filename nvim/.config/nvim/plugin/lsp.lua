@@ -79,7 +79,7 @@ cmp.setup({
 
 local function config(_config)
     return vim.tbl_deep_extend("force", {
-        capabilities = comp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = comp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         on_attach = function()
         nnoremap("<leader>td", function() vim.lsp.buf.definition() end)
         nnoremap("<leader>tl", function() vim.lsp.buf.type_definition() end)

@@ -84,7 +84,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tomtom/tcomment_vim'
 " " v Must come before vim-makdown
 " Plug 'godlygeek/tabular'
-" " Plug 'plasticboy/vim-markdown'
+ " Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim'
 " " ^ Manually have to run: :call mkdp#util#install()
 Plug 'christoomey/vim-tmux-navigator'

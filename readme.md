@@ -26,4 +26,5 @@
 * json: `npm i -g vscode-langservers-extracted`
 * vim: `npm i -g vim-language-server`
 * html: `npm i -g vscode-langservers-extracted`
-* all: `npm i -g pyright typescript-language-server bash-language-server vscode-langservers-extracted dockerfile-language-server-nodejs yaml-language-server vscode-langservers-extracted vim-language-server vscode-langservers-extracted`
+* terraform: `brew install hashicorp/tap/terraform-ls`
+* all: `brew install hashicorp/tap/terraform-ls && npm i -g pyright typescript-language-server bash-language-server vscode-langservers-extracted dockerfile-language-server-nodejs yaml-language-server vscode-langservers-extracted vim-language-server vscode-langservers-extracted`
