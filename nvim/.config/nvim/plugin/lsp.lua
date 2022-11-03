@@ -37,6 +37,10 @@ cmp.setup({
     end,
     },
 
+    experimental = {
+      ghost_text = true,
+    },
+
     mapping = {
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
@@ -76,10 +80,26 @@ cmp.setup({
     )
 })
 
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
 
 local function config(_config)
     return vim.tbl_deep_extend("force", {
-        capabilities = comp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = comp.default_capabilities(),
         on_attach = function()
         nnoremap("<leader>td", function() vim.lsp.buf.definition() end)
         nnoremap("<leader>tl", function() vim.lsp.buf.type_definition() end)
@@ -106,5 +126,6 @@ lspconfig.yamlls.setup(config())
 lspconfig.jsonls.setup(config())
 lspconfig.vimls.setup(config())
 lspconfig.html.setup(config())
+lspconfig.terraformls.setup(config())
 
 require("luasnip.loaders.from_vscode").lazy_load()

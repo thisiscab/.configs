@@ -31,21 +31,20 @@ set number relativenumber
     set softtabstop=4       " when hitting tab or backspace, how many spaces should a tab be (see expandtab)
     set tabstop=8           " real tabs should be 8, and they will show with set list on
     set complete+=kspell    " Allow spelling completing when spell is activated
-    set completeopt=menu,menuone,noselect
 
 call plug#begin('~/.vim/plugged')
 
 " Attempt
 Plug 'neovim/nvim-lspconfig'
+
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-" Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 Plug 'glepnir/lspsaga.nvim'
-Plug 'simrat39/symbols-outline.nvim'
+" Plug 'simrat39/symbols-outline.nvim'
 
 " Neovim Tree shitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -57,24 +56,17 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 
 Plug 'mbbill/undotree'
-Plug 'tpope/vim-dispatch'
 Plug 'gruvbox-community/gruvbox'
-
-" telescope requirements...
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " prettier
 Plug 'sbdchd/neoformat'
+let g:neoformat_basic_format_trim = 1
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 let g:terraform_fmt_on_save=1
 let g:terraform_unindent_heredoc=1
 
-" Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
@@ -82,26 +74,18 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 " " required by fugitive for :gbrowse
 Plug 'tpope/vim-rhubarb'
 Plug 'tomtom/tcomment_vim'
-" " v Must come before vim-makdown
-" Plug 'godlygeek/tabular'
- " Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim'
+ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " " ^ Manually have to run: :call mkdp#util#install()
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'digitaltoad/vim-pug'
-" Plug 'mattn/gist-vim'
-" " Required for gist-vim
-" Plug 'mattn/webapi-vim'
-" " " end
-" Plug 'rking/ag.vim'
+let g:tmux_navigator_disable_when_zoomed = 1
+" let g:tmux_navigator_preserve_zoom = 1
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'jremmen/vim-ripgrep'
-" Plug 'w0rp/ale'
-" Plug 'elzr/vim-json'
-" Plug 'chrisbra/csv.vim'
 
 call plug#end()
 
 let mapleader = " "
+set completeopt=menu,menuone,noselect
 
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 nnoremap <Leader>snr :%s/\<<C-r><C-w>\>//g<Left><Left>
