@@ -1,0 +1,13 @@
+items:
+- checked: false
+  checkedicon: X
+  date: null
+  tags: []
+  text: test
+  uncheckedicon: ' '
+- checked: true
+  checkedicon: X
+  date: null
+  tags: []
+  text: test
+  uncheckedicon: ' '

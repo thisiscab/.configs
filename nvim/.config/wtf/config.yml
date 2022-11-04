@@ -1,0 +1,26 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+  grid:
+    columns: [32, 32, 32, 32, 90]
+    rows: [10, 10, 10, 4, 4, 90]
+  refreshInterval: 1
+  mods:
+    todoList:
+      type: todo
+      enabled: true
+      checkedIcon: "X"
+      colors:
+        checked: gray
+        highlight:
+          fore: "black"
+          back: "orange"
+      filename: "todo.yml"
+      position:
+        top: 2
+        left: 2
+        height: 2
+        width: 1

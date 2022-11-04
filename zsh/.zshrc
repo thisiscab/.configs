@@ -85,6 +85,10 @@ if [[ -f "$HOME/src/.configs_work/zsh/.functions_work" ]]; then
   source $HOME/.functions_work
 fi
 
+# if [[ -f "$HOME/src/.configs/zsh/zsh-autosuggestions.zsh" ]]; then
+#   source $HOME/src/.configs/zsh/zsh-autosuggestions.zsh
+# fi
+
 eval "$(direnv hook zsh)"
 
 function zvm_after_init() {
@@ -93,3 +97,6 @@ function zvm_after_init() {
   bindkey -s '^p' "tmux-sessionizer\n"
 }
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+export GITHUB_TOKEN=stuff
+export GITLAB_TOKEN=stuff

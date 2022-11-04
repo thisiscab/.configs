@@ -4,8 +4,8 @@ local function bind(op, outer_opts)
     outer_opts = outer_opts or {noremap = true}
     return function(lhs, rhs, opts)
         opts = vim.tbl_extend("force",
-            outer_opts,
-            opts or {}
+        outer_opts,
+        opts or {}
         )
         vim.keymap.set(op, lhs, rhs, opts)
     end
@@ -33,12 +33,12 @@ cmp.setup({
 
     snippet = {
         expand = function(args)
-        luasnip.lsp_expand(args.body) -- For `luasnip` users.
-    end,
+            luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        end,
     },
 
     experimental = {
-      ghost_text = true,
+        ghost_text = true,
     },
 
     mapping = {
@@ -70,50 +70,72 @@ cmp.setup({
     },
 
     sources = cmp.config.sources(
-        {
-            { name = 'nvim_lsp' },
-            { name = 'luasnip' },
-        },
-        {
-            { name = 'buffer' },
-        }
+    {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    },
+    {
+        { name = 'buffer' },
+    }
     )
+})
+
+
+cmp.setup {
+    sources = {
+        { name = 'calc' },
+        { name = 'path' },
+        { name = 'buffer' },
+    }
+}
+
+cmp.setup.filetype({ 'markdown', 'text', 'gitcommit' }, {
+    sources = cmp.config.sources({
+        { name = 'emoji' },
+    }),
+})
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+        { name = 'buffer' },
+    })
 })
 
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = 'buffer' }
+        { name = 'buffer' }
     }
-  })
+})
 
 
-  cmp.setup.cmdline(':', {
+cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path' }
+        { name = 'path' }
     }, {
-      { name = 'cmdline' }
+        { name = 'cmdline' }
     })
-  })
+})
 
 local function config(_config)
     return vim.tbl_deep_extend("force", {
         capabilities = comp.default_capabilities(),
         on_attach = function()
-        nnoremap("<leader>td", function() vim.lsp.buf.definition() end)
-        nnoremap("<leader>tl", function() vim.lsp.buf.type_definition() end)
-        nnoremap("<leader>ti", function() vim.lsp.buf.implementation() end)
-        nnoremap("<leader>th", function() vim.lsp.buf.hover() end)
-        nnoremap("<leader>te", function() vim.diagnostic.open_float() end)
-        nnoremap("[d", function() vim.diagnostic.goto_prev() end)
-        nnoremap("]d", function() vim.diagnostic.goto_next() end)
-        nnoremap("<leader>ta", function() vim.lsp.buf.code_action() end)
-        nnoremap("<leader>tr", function() vim.lsp.buf.references() end)
-        nnoremap("<leader>ts", function() vim.lsp.buf.signature_help() end)
-        nnoremap("<leader>d", function() vim.diagnostic.setloclist() end)
+            nnoremap("<leader>td", function() vim.lsp.buf.definition() end)
+            nnoremap("<leader>tl", function() vim.lsp.buf.type_definition() end)
+            nnoremap("<leader>ti", function() vim.lsp.buf.implementation() end)
+            nnoremap("<leader>th", function() vim.lsp.buf.hover() end)
+            nnoremap("<leader>te", function() vim.diagnostic.open_float() end)
+            nnoremap("[d", function() vim.diagnostic.goto_prev() end)
+            nnoremap("]d", function() vim.diagnostic.goto_next() end)
+            nnoremap("<leader>ta", function() vim.lsp.buf.code_action() end)
+            nnoremap("<leader>tr", function() vim.lsp.buf.references() end)
+            nnoremap("<leader>ts", function() vim.lsp.buf.signature_help() end)
+            nnoremap("<leader>d", function() vim.diagnostic.setloclist() end)
         end,
-        }, _config or {})
+    }, _config or {})
 end
 
 

@@ -38,9 +38,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'glepnir/lspsaga.nvim'
@@ -54,6 +51,18 @@ Plug 'nvim-treesitter/playground'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
+
+" fun
+Plug 'nvim-lua/plenary.nvim'
+Plug 'petertriho/cmp-git'
+
+Plug 'hrsh7th/cmp-calc'
+Plug 'hrsh7th/cmp-emoji'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'uga-rosa/cmp-dictionary'
+" /fun
 
 Plug 'mbbill/undotree'
 Plug 'gruvbox-community/gruvbox'
