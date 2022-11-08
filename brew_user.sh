@@ -15,6 +15,7 @@ function brews() {
     brew "asdf"
     brew "stow"
     brew "fzf"
+    brew "fd"
     brew "zsh-vi-mode"
     brew "git-delta"
 

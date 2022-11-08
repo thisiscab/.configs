@@ -52,8 +52,10 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 
-" fun
+
 Plug 'nvim-lua/plenary.nvim'
+
+" fun
 Plug 'petertriho/cmp-git'
 
 Plug 'hrsh7th/cmp-calc'
@@ -76,7 +78,10 @@ Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 let g:terraform_fmt_on_save=1
 let g:terraform_unindent_heredoc=1
 
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-ui-select.nvim'
+
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
