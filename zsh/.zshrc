@@ -1,7 +1,7 @@
 # Script to benchmark speed:
 # for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
 
-# export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
 export DIRSTACKSIZE=9
 export HISTSIZE=10000               # number of lines kept in history
 export SAVEHIST=10000               # number of lines saved in the history after logout
@@ -96,7 +96,6 @@ function zvm_after_init() {
 
   bindkey -s '^p' "tmux-sessionizer\n"
 }
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 export GITHUB_TOKEN=stuff
 export GITLAB_TOKEN=stuff

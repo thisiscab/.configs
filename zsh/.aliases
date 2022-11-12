@@ -3,7 +3,7 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # General
     alias szsh="source ~/.zshrc"
-    alias evim="$EDITOR ~/.config/nvim/init.vim"
+    alias evim="$EDITOR ~/.config/nvim/init.lua"
     alias ezsh="$EDITOR ~/.zshrc"
     alias vim="nvim"
     alias vi="nvim"

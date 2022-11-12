@@ -35,6 +35,8 @@ function setAsdfVersionManager() {
     install_asdf_plugin "ruby" "https://github.com/asdf-vm/asdf-ruby.git"
     install_asdf_plugin "nodejs" "https://github.com/asdf-vm/asdf-nodejs.git"
     install_asdf_plugin "python" "https://github.com/danhper/asdf-python"
+    install_asdf_plugin "rust" "https://github.com/asdf-community/asdf-rust.git"
+    install_asdf_plugin "golang" "https://github.com/kennyp/asdf-golang.git"
 
     echo "Installing latest Ruby ..."
     install_asdf_language "ruby"
@@ -48,6 +50,8 @@ function setAsdfVersionManager() {
 
     echo "Installing latest Python3.10 ..."
     install_asdf_language "python" "3.10"
+
+    install_asdf_language "golang" "1.19.3"
 
     asdf global python 3.10 2.7
 }

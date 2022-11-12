@@ -1,0 +1,8 @@
+require("thisiscab.airline")
+require("thisiscab.fugitive")
+require("thisiscab.telescope")
+require("thisiscab.treesitter")
+require("thisiscab.lsp")
+require("thisiscab.terraform")
+require("thisiscab.tmux")
+require("thisiscab.neoformat")

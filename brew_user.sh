@@ -18,6 +18,10 @@ function brews() {
     brew "fd"
     brew "zsh-vi-mode"
     brew "git-delta"
+    brew "rust"
+    brew "cmake"
+    brew "luarocks"
+    brew "shfmt"
 
 EOF
 }
