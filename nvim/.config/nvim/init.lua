@@ -45,7 +45,7 @@ Plug("rafamadriz/friendly-snippets")
 Plug("nvim-lua/plenary.nvim")
 
 -- fun
-Plug("petertriho/cmp-git")
+-- Plug("petertriho/cmp-git")
 
 Plug("hrsh7th/cmp-calc")
 Plug("hrsh7th/cmp-emoji")
@@ -97,6 +97,11 @@ keymap.set("n", "<Leader>k", ":bnext<CR>")
 keymap.set("n", "<Leader>j", ":bprevious<CR>")
 keymap.set("n", "<Leader>l", ":b#<CR>")
 keymap.set("n", "<Leader>bq", ":bp <BAR> bd #<CR>")
+
+vim.cmd("command! WQ wq")
+vim.cmd("command! Wq wq")
+vim.cmd("command! W w")
+vim.cmd("command! Q q")
 
 -- autocmd Syntax * syntax keyword GreenMarker NOTE note
 -- autocmd Syntax * syntax keyword YellowMarker TODO todo

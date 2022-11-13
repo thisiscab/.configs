@@ -74,6 +74,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gc!='git commit -v --no-edit --amend'
     alias gca='git commit -v -a'
     alias gca!='git commit -v -a --no-edit --amend'
+    alias gcaa='git add --all && git commit -v'
+    alias gcaa!='git add -all && git commit -v --no-edit --amend'
+    alias gcp='git commit -v -p'
+    alias gcp!='git commit -v -p'
 
     alias gcb='git checkout -b'
     alias gcm='git checkout master'
