@@ -1,5 +1,4 @@
 local g = vim.g
-local keymap = vim.keymap
 
 g.neoformat_basic_format_trim = 1
 g.neoformat_basic_format_retab = 1
@@ -23,5 +22,3 @@ g.neoformat_enabled_zsh = { "shfmt" }
 g.shfmt_opt = "-ci"
 
 g.neoformat_enabled_terraform = { "terraform" }
-
-keymap.set("n", "<leader>ff", ":Neoformat<CR>")

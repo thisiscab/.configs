@@ -14,11 +14,6 @@ table.insert(vimgrep_arguments, "--hidden")
 table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!.git/*")
 
-keymap.set("n", "<Leader>sr", ":Telescope find_files<CR>")
-keymap.set("n", "<Leader>sl", ":Telescope find_files<CR>")
-keymap.set("n", "<Leader>sf", ":Telescope live_grep<CR>")
-keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
-
 local function multiopen(prompt_bufnr, method)
 	local edit_file_cmd_map = {
 		vertical = "vsplit",
@@ -99,7 +94,7 @@ telescope.setup({
 			i = {
 				-- ["<CR>"] = multiopen_selection,
 				["<C-h>"] = "which_key",
-				["<C-a>"] = "select_all",
+				["<C-s>"] = "select_all",
 			},
 		},
 

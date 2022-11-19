@@ -22,82 +22,172 @@ opt.relativenumber = true
 
 opt.complete = "kspell"
 
-local Plug = vim.fn["plug#"]
+vim.cmd('packadd packer.nvim')
 
-vim.call("plug#begin", "~/.config/nvim/plugged")
+local packer = require 'packer'
+-- Performance
+pcall(require, "impatient")
 
-Plug("neovim/nvim-lspconfig")
+local util = require 'packer.util'
 
-Plug("hrsh7th/cmp-nvim-lsp")
-Plug("hrsh7th/nvim-cmp")
+packer.init({
+  package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
+})
 
--- Plug("glepnir/lspsaga.nvim")
+--- startup and add configure plugins
+packer.startup(function(use)
+    use "wbthomason/packer.nvim"
 
--- Neovim Tree shitter
-Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
--- Plug("nvim-treesitter/playground")
+    -- Performance
+    use "lewis6991/impatient.nvim"
 
--- Snippets
-Plug("L3MON4D3/LuaSnip")
-Plug("saadparwaiz1/cmp_luasnip")
-Plug("rafamadriz/friendly-snippets")
+    use "neovim/nvim-lspconfig"
+    use "editorconfig/editorconfig-vim"
 
-Plug("nvim-lua/plenary.nvim")
+    use {
+        "christoomey/vim-tmux-navigator",
+        event = { "VimEnter" },
+        config = function ()
+            require("thisiscab.tmux")
+        end,
+    }
 
--- fun
--- Plug("petertriho/cmp-git")
+    -- use {
+    --     "vim-airline/vim-airline",
+    --     event = { "VimEnter" },
+    --     config = function ()
+    --         require("thisiscab.airline")
+    --     end,
+    -- }
+    -- use 'itchyny/lightline.vim'
 
-Plug("hrsh7th/cmp-calc")
-Plug("hrsh7th/cmp-emoji")
-Plug("hrsh7th/cmp-buffer")
-Plug("hrsh7th/cmp-path")
-Plug("hrsh7th/cmp-cmdline")
--- Plug("uga-rosa/cmp-dictionary")
--- /fun
+    use {
+        "sainnhe/gruvbox-material",
+        config = function ()
+            vim.opt.termguicolors = true
+            vim.opt.background = "dark"
+            vim.cmd("colorscheme gruvbox-material")
+        end,
+    }
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        run = ':TSUpdate',
+        config = function ()
+            require("thisiscab.treesitter")
+        end,
+    }
 
--- Plug("mbbill/undotree")
-Plug("gruvbox-community/gruvbox")
+    use {
+        "hashivim/vim-terraform",
+        ft = { "terraform" },
+        config = function ()
+            require("thisiscab.terraform")
+        end,
+    }
 
--- prettier
-Plug("sbdchd/neoformat")
-Plug("editorconfig/editorconfig-vim")
+    use {
+        "sbdchd/neoformat",
+        cmd = { "Neoformat" },
+        config = function ()
+            require("thisiscab.neoformat")
+        end,
+    }
 
-Plug("hashivim/vim-terraform", { ["for"] = "terraform" })
+    use {
+        "hrsh7th/nvim-cmp",
+        event = { "InsertEnter" },
+        opt = true,
+        requires = {
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-calc",
+            "hrsh7th/cmp-emoji",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp",
 
-Plug("nvim-telescope/telescope.nvim", { ["tag"] = "0.1.0" })
-Plug("nvim-telescope/telescope-ui-select.nvim")
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+            "rafamadriz/friendly-snippets",
+        },
+        config = function ()
+            require("thisiscab.lsp")
+        end,
+    }
 
-Plug("vim-airline/vim-airline")
-Plug("tpope/vim-fugitive")
-Plug("shumphrey/fugitive-gitlab.vim")
--- " " required by fugitive for :gbrowse
-Plug("tpope/vim-rhubarb")
-Plug("tomtom/tcomment_vim")
-Plug("iamcco/markdown-preview.nvim", { ["do"] = "mkdp#util#install()", ["for"] = { "markdown", "vim-plug" } })
+    use {
+        "nvim-telescope/telescope.nvim",
+        version = "0.1.0" ,
+        event = { "VimEnter" },
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+        },
+        config = function ()
+            require("thisiscab.telescope")
+        end,
+    }
 
-Plug("christoomey/vim-tmux-navigator")
-Plug("digitaltoad/vim-pug", { ["for"] = "pug" })
--- Plug("jremmen/vim-ripgrep")
+    use {
+      "tpope/vim-fugitive",
+      cmd = { "Git", "GBrowse", "GBlame" },
+      requires = {
+        "tpope/vim-rhubarb",
+        "shumphrey/fugitive-gitlab.vim",
+      },
+    }
 
-vim.call("plug#end")
+    use {
+        "tomtom/tcomment_vim",
+        event = "BufReadPre",
+    }
+    use {
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && yarn install",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview" },
+        ft = { "markdown", "vim-plug" },
+        config = function ()
+            require("thisiscab.markdown-preview")
+        end,
+    }
 
-opt.termguicolors = true
-opt.background = "dark"
-vim.cmd("colorscheme gruvbox")
+end
+)
 
+-- NeoFormat
+keymap.set("n", "<leader>ff", ":Neoformat<CR>")
+
+-- Telescope
+keymap.set("n", "<Leader>sr", ":Telescope find_files<CR>")
+keymap.set("n", "<Leader>sl", ":Telescope find_files<CR>")
+keymap.set("n", "<Leader>sf", ":Telescope live_grep<CR>")
+keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
+
+-- Fugitive
+keymap.set("n", "<leader>gs", ":Git<CR>", { silent = true })
+keymap.set("n", "<leader>gd", ":Gdiff<CR>", { silent = true })
+keymap.set("n", "<leader>gc", ":Git commit<CR>", { silent = true })
+keymap.set("n", "<leader>gb", ":Git blame<CR>", { silent = true })
+keymap.set("n", "<leader>gl", ":Gclog<CR>", { silent = true })
+keymap.set("n", "<leader>gw", ":Gbrowse<CR>", { silent = true })
+keymap.set("n", "<leader>gp", ":Git push<CR>", { silent = true })
+
+-- Markdown Preview
+keymap.set("n", "<Leader>mp", ":MarkdownPreviewToggle<CR>")
+
+-- Custom
 keymap.set("n", "<Leader>rtw", ":%s/\\s\\+$//e<CR>")
 keymap.set("n", "<Leader>snr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 keymap.set("n", "<Leader>pwd", ':echo expand("%:p")<CR>')
 keymap.set("n", "<Leader>ss", ":luafile $MYVIMRC<CR>")
 keymap.set("n", "<Leader>cs", ":noh<CR>")
 
--- ----- Buffer Navigation -----
+-- Buffer Navigation
 keymap.set("n", "<Leader>k", ":bnext<CR>")
--- Move to the previous buffer
 keymap.set("n", "<Leader>j", ":bprevious<CR>")
 keymap.set("n", "<Leader>l", ":b#<CR>")
 keymap.set("n", "<Leader>bq", ":bp <BAR> bd #<CR>")
 
+-- I'm stupid
 vim.cmd("command! WQ wq")
 vim.cmd("command! Wq wq")
 vim.cmd("command! W w")
@@ -109,5 +199,3 @@ vim.cmd("command! Q q")
 -- highlight GreenMarker cterm=reverse ctermfg=108 ctermbg=235 gui=bold guifg=#8ec07c guibg=#282828
 -- highlight YellowMarker cterm=bold ctermfg=235 ctermbg=214 gui=bold guifg=#282828 guibg=#fabd2f
 -- highlight RedMarker cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
-
-require("thisiscab")
