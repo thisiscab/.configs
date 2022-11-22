@@ -121,8 +121,10 @@ packer.startup(function(use)
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
+            'nvim-telescope/telescope-file-browser.nvim',
         },
         config = function ()
+            require("telescope").load_extension "file_browser"
             require("thisiscab.telescope")
         end,
     }
@@ -161,6 +163,7 @@ keymap.set("n", "<Leader>sr", ":Telescope find_files<CR>")
 keymap.set("n", "<Leader>sl", ":Telescope find_files<CR>")
 keymap.set("n", "<Leader>sf", ":Telescope live_grep<CR>")
 keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
+keymap.set("n", "<Leader>fb", ":Telescope file_browser<CR>")
 
 -- Fugitive
 keymap.set("n", "<leader>gs", ":Git<CR>", { silent = true })
