@@ -97,9 +97,9 @@ telescope.setup({
             },
 
         },
+        hidden = true,
         respect_gitignore = false,
 
-        -- `hidden = true` is not supported in text grep commands.
         vimgrep_arguments = vimgrep_arguments,
     },
     pickers = {
@@ -109,11 +109,15 @@ telescope.setup({
                     ["<CR>"] = multiopen_selection,
                 },
             },
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/{.git, node_modules}/*" },
         },
     },
     extensions = {
         file_browser = {
+            hidden = true,
             hijack_netrw = true,
         },
     },
 })
+
+require("telescope").load_extension "file_browser"

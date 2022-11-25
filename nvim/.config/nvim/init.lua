@@ -124,7 +124,6 @@ packer.startup(function(use)
             'nvim-telescope/telescope-file-browser.nvim',
         },
         config = function ()
-            require("telescope").load_extension "file_browser"
             require("thisiscab.telescope")
         end,
     }
@@ -151,7 +150,6 @@ packer.startup(function(use)
             require("thisiscab.markdown-preview")
         end,
     }
-
 end
 )
 
