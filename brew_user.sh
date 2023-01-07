@@ -22,6 +22,7 @@ function brews() {
     brew "cmake"
     brew "luarocks"
     brew "shfmt"
+    brew "black"
 
 EOF
 }

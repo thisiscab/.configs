@@ -36,9 +36,9 @@ osascript -e 'tell application "System Preferences" to quit'
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName "TODO"
-#sudo scutil --set HostName "TODO"
-#sudo scutil --set LocalHostName "TODO"
+# sudo scutil --set ComputerName "TODO"
+# sudo scutil --set HostName "TODO"
+# sudo scutil --set LocalHostName "TODO"
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
 
 # Set standby delay to 24 hours (default is 1 hour)

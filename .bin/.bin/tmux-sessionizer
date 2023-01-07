@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/src -mindepth 1 -maxdepth 3 -type d -exec test -d '{}/.git' ';' -print -prune | fzf --height 30%)
+    selected=$(find ~/src -mindepth 1 -maxdepth 4 -type d -exec test -d '{}/.git' ';' -print -prune | fzf --height 30%)
 fi
 
 if [[ -z $selected ]]; then
@@ -18,7 +18,7 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
+if ! tmux has-session -t=$selected_name 2>/dev/null; then
     tmux new-session -ds $selected_name -c $selected
 fi
 

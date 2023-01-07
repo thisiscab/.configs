@@ -99,16 +99,15 @@ telescope.setup({
         },
         hidden = true,
         respect_gitignore = false,
-
         vimgrep_arguments = vimgrep_arguments,
     },
     pickers = {
         find_files = {
-            mappings = {
-                i = {
-                    ["<CR>"] = multiopen_selection,
-                },
-            },
+            -- mappings = {
+            --     i = {
+            --         ["<CR>"] = multiopen_selection,
+            --     },
+            -- },
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/{.git, node_modules}/*" },
         },
     },
@@ -116,6 +115,24 @@ telescope.setup({
         file_browser = {
             hidden = true,
             hijack_netrw = true,
+            disable_devicons = true,
+            mappings = {
+                i = { 
+                    ["<C-r>"] = function(prompt_bufnr)
+                    local git_root_path =
+                        require("plenary.job"):new({ command = "git", args = { "rev-parse", "--show-toplevel" } }):sync()[1]
+                    local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+                    local finder = current_picker.finder
+                    -- if finder.files then
+                        finder.path = git_root_path
+                    -- else
+                        -- finder.cwd = git_root_path
+                    -- end
+                    require("telescope._extensions.file_browser.utils").redraw_border_title(current_picker)
+                    current_picker:refresh(finder, { reset_prompt = true, multi = current_picker._multi })
+                    end
+                }
+            }
         },
     },
 })

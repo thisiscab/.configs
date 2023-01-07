@@ -18,6 +18,7 @@ export LANG="C"
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS="--require-sha --no-quarantine"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # try to Fuzzy-match
 zstyle ':completion:*' completer _complete _match _approximate
@@ -52,8 +53,8 @@ setopt listpacked           # variable col widths (takes up less space)
 # setopt auto_resume
 # setopt auto_cd
 
-export HOMEBREW_NO_ANALYTICS=1
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $(brew --prefix asdf)/libexec/asdf.sh
 
 autoload -Uz colors && colors
 autoload -Uz compinit && (compinit &)
@@ -62,26 +63,25 @@ source $HOME/.zsh-theme
 source $HOME/.aliases
 source $HOME/.functions
 
-source /usr/local/opt/asdf/libexec/asdf.sh
 
 # tmux_running=$(pgrep tmux)
 if [[ -z $TMUX ]]; then
   tmuxinator default
 fi
 
-if [[ -f "$HOME/src/.configs_personal/zsh/.aliases_personal" ]]; then
+if [[ -f "$HOME/src/personal/.configs_personal/zsh/.aliases_personal" ]]; then
   source $HOME/.aliases_personal
 fi
 
-if [[ -f "$HOME/src/.configs_personal/zsh/.functions_personal" ]]; then
+if [[ -f "$HOME/src/personal/.configs_personal/zsh/.functions_personal" ]]; then
   source $HOME/.functions_personal
 fi
 
-if [[ -f "$HOME/src/.configs_work/zsh/.aliases_work" ]]; then
+if [[ -f "$HOME/src/personal/.configs_work/zsh/.aliases_work" ]]; then
   source $HOME/.aliases_work
 fi
 
-if [[ -f "$HOME/src/.configs_work/zsh/.functions_work" ]]; then
+if [[ -f "$HOME/src/personal/.configs_work/zsh/.functions_work" ]]; then
   source $HOME/.functions_work
 fi
 

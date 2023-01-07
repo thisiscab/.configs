@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function setup() {
-    # setupBrew
+    setupBrew
 
-    configureMac
+    #configureMac
 }
 
 function configureMac() {
