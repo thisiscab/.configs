@@ -1,5 +1,6 @@
 local g = vim.g
 local opt = vim.opt
+local o = vim.o
 local keymap = vim.keymap
 
 g.mapleader = " "
@@ -21,12 +22,13 @@ opt.number = true
 opt.relativenumber = true
 
 opt.complete = "kspell"
+-- o.completeopt = "menu,menuone,noselect"
 
 vim.cmd('packadd packer.nvim')
 
 local packer = require 'packer'
 -- Performance
-pcall(require, "impatient")
+-- pcall(require, "impatient")
 
 local util = require 'packer.util'
 
@@ -39,7 +41,7 @@ packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- Performance
-    use "lewis6991/impatient.nvim"
+    -- use "lewis6991/impatient.nvim"
 
     use "neovim/nvim-lspconfig"
     use "editorconfig/editorconfig-vim"
@@ -95,8 +97,6 @@ packer.startup(function(use)
 
     use {
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter" },
-        opt = true,
         requires = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-calc",
@@ -144,7 +144,7 @@ packer.startup(function(use)
     }
     use {
         "iamcco/markdown-preview.nvim",
-        run = "cd app && yarn install",
+        run = function() vim.fn["mkdp#util#install"]() end,
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview" },
         ft = { "markdown", "vim-plug" },
         config = function ()

@@ -1,14 +1,14 @@
-local Remap = {}
+-- local Remap = {}
 
 local function bind(op, outer_opts)
-    outer_opts = outer_opts or {noremap = true}
+    outer_opts = outer_opts or { noremap = true }
     return function(lhs, rhs, opts)
         opts = vim.tbl_extend("force", outer_opts, opts or {})
         vim.keymap.set(op, lhs, rhs, opts)
     end
 end
 
-Remap.nmap = bind("n", {noremap = false})
+Remap.nmap = bind("n", { noremap = false })
 Remap.nnoremap = bind("n")
 Remap.vnoremap = bind("v")
 Remap.xnoremap = bind("x")
@@ -19,7 +19,7 @@ local comp = require("cmp_nvim_lsp")
 local lspconfig = require("lspconfig")
 local luasnip = require("luasnip")
 
-local nnoremap = Remap.nnoremap
+-- local nnoremap = Remap.nnoremap
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -135,27 +135,27 @@ lspconfig.yamlls.setup(config())
 lspconfig.jsonls.setup(config())
 lspconfig.vimls.setup(config())
 lspconfig.html.setup(config())
-lspconfig.terraformls.setup(config())
+Lspconfig.terraformls.setup(config())
 
-require("lspconfig").sumneko_lua.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT"
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {"vim"}
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {enable = false}
-        }
-    }
-})
+-- require("lspconfig").sumneko_lua.setup({
+--     settings = {
+--         Lua = {
+--             runtime = {
+--                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--                 version = "LuaJIT"
+--             },
+--             diagnostics = {
+--                 -- Get the language server to recognize the `vim` global
+--                 globals = {"vim"}
+--             },
+--             workspace = {
+--                 -- Make the server aware of Neovim runtime files
+--                 library = vim.api.nvim_get_runtime_file("", true),
+--                 checkThirdParty = false
+--             },
+--             -- Do not send telemetry data containing a randomized but unique identifier
+--             telemetry = {enable = false}
+--         }
+--     }
+-- })
 require("luasnip.loaders.from_vscode").lazy_load()
