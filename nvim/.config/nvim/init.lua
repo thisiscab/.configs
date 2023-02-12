@@ -7,6 +7,8 @@ g.mapleader = " "
 
 opt.clipboard = "unnamed"
 
+opt.autoindent = true
+
 opt.ignorecase = true
 opt.infercase = true
 opt.smartcase = true
@@ -28,7 +30,7 @@ vim.cmd('packadd packer.nvim')
 
 local packer = require 'packer'
 -- Performance
--- pcall(require, "impatient")
+pcall(require, "impatient")
 
 local util = require 'packer.util'
 
@@ -41,7 +43,7 @@ packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- Performance
-    -- use "lewis6991/impatient.nvim"
+    use "lewis6991/impatient.nvim"
 
     use "neovim/nvim-lspconfig"
     use "editorconfig/editorconfig-vim"

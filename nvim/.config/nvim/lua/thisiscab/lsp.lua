@@ -1,14 +1,14 @@
--- local Remap = {}
+local Remap = {}
 
 local function bind(op, outer_opts)
-    outer_opts = outer_opts or { noremap = true }
+    outer_opts = outer_opts or {noremap = true}
     return function(lhs, rhs, opts)
         opts = vim.tbl_extend("force", outer_opts, opts or {})
         vim.keymap.set(op, lhs, rhs, opts)
     end
 end
 
-Remap.nmap = bind("n", { noremap = false })
+Remap.nmap = bind("n", {noremap = false})
 Remap.nnoremap = bind("n")
 Remap.vnoremap = bind("v")
 Remap.xnoremap = bind("x")
@@ -18,8 +18,6 @@ local cmp = require("cmp")
 local comp = require("cmp_nvim_lsp")
 local lspconfig = require("lspconfig")
 local luasnip = require("luasnip")
-
--- local nnoremap = Remap.nnoremap
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -46,11 +44,12 @@ cmp.setup({
         ["<C-j>"] = cmp.mapping.confirm({select = true}),
         ["<C-y>"] = cmp.mapping.confirm({select = true}),
 
+        ["<Tab>"] = cmp.mapping(function() luasnip.expand_or_jump() end, {"i", "s"}),
+        ["<S-Tab>"] = cmp.mapping(function() luasnip.jump(-1) end, {"i", "s"}),
+
         ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
@@ -60,8 +59,6 @@ cmp.setup({
         ["<C-p>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -75,6 +72,7 @@ cmp.setup({
 
 cmp.setup.filetype({"markdown", "text", "gitcommit"},
                    {sources = cmp.config.sources({{name = "emoji"}})})
+
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         {name = "cmp_git"} -- You can specify the `cmp_git` source if you were installed it.
@@ -91,51 +89,77 @@ cmp.setup.cmdline(":", {
     sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
 })
 
-local function config(_config)
-    return vim.tbl_deep_extend("force", {
-        capabilities = comp.default_capabilities(),
-        on_attach = function()
-            nnoremap("<leader>td", function()
-                vim.lsp.buf.definition()
-            end)
-            nnoremap("<leader>tl", function()
-                vim.lsp.buf.type_definition()
-            end)
-            nnoremap("<leader>ti", function()
-                vim.lsp.buf.implementation()
-            end)
-            nnoremap("<leader>th", function() vim.lsp.buf.hover() end)
-            nnoremap("<leader>te", function()
-                vim.diagnostic.open_float()
-            end)
-            nnoremap("[d", function() vim.diagnostic.goto_prev() end)
-            nnoremap("]d", function() vim.diagnostic.goto_next() end)
-            nnoremap("<leader>ta", function()
-                vim.lsp.buf.code_action()
-            end)
-            nnoremap("<leader>tr", function()
-                vim.lsp.buf.references()
-            end)
-            nnoremap("<leader>ts", function()
-                vim.lsp.buf.signature_help()
-            end)
-            nnoremap("<leader>d", function()
-                vim.diagnostic.setloclist()
-            end)
-        end
-    }, _config or {})
+-- local function config(_config)
+--     return vim.tbl_deep_extend("force", {
+--         capabilities = comp.default_capabilities(),
+--         on_attach = function(client, bufnr)
+--             -- Enable completion triggered by <c-x><c-o>
+--             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+--
+--             vim.keymap.set('n', "<leader>td", function()
+--                 vim.lsp.buf.definition()
+--             end)
+--             vim.keymap.set('n', "<leader>tl", function()
+--                 vim.lsp.buf.type_definition()
+--             end)
+--             vim.keymap.set('n', "<leader>ti", function()
+--                 vim.lsp.buf.implementation()
+--             end)
+--             vim.keymap.set('n', "<leader>th", function() vim.lsp.buf.hover() end)
+--             vim.keymap.set('n', "<leader>te", function()
+--                 vim.diagnostic.open_float()
+--             end)
+--             vim.keymap.set('n', "[d", function() vim.diagnostic.goto_prev() end)
+--             vim.keymap.set('n', "]d", function() vim.diagnostic.goto_next() end)
+--             vim.keymap.set('n', "<leader>ta", function()
+--                 vim.lsp.buf.code_action()
+--             end)
+--             vim.keymap.set('n', "<leader>tr", function()
+--                 vim.lsp.buf.references()
+--             end)
+--             vim.keymap.set('n', "<leader>ts", function()
+--                 vim.lsp.buf.signature_help()
+--             end)
+--             vim.keymap.set('n', "<leader>d", function()
+--                 vim.diagnostic.setloclist()
+--             end)
+--         end
+--     }, _config or {})
+-- end
+
+local opts = {noremap = true, silent = true}
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    local bufopts = {noremap = true, silent = true, buffer = bufnr}
+    vim.keymap.set('n', "<leader>td", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', "<leader>tl", vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', "<leader>ti", vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', "<leader>th", vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', "<leader>te", vim.diagnostic.open_float, bufopts)
+    vim.keymap.set('n', "[d", vim.diagnostic.goto_prev, bufopts)
+    vim.keymap.set('n', "]d", vim.diagnostic.goto_next, bufopts)
+    vim.keymap.set('n', "<leader>ta", vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', "<leader>tr", vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', "<leader>ts", vim.lsp.buf.signature_help, bufopts)
 end
 
-lspconfig.tsserver.setup(config())
-lspconfig.pyright.setup(config())
-lspconfig.bashls.setup(config())
-lspconfig.cssls.setup(config())
-lspconfig.dockerls.setup(config())
-lspconfig.yamlls.setup(config())
-lspconfig.jsonls.setup(config())
-lspconfig.vimls.setup(config())
-lspconfig.html.setup(config())
-Lspconfig.terraformls.setup(config())
+lspconfig['tsserver'].setup {on_attach = on_attach}
+lspconfig['pyright'].setup {on_attach = on_attach}
+lspconfig['bashls'].setup {on_attach = on_attach}
+lspconfig['cssls'].setup {on_attach = on_attach}
+lspconfig['dockerls'].setup {on_attach = on_attach}
+lspconfig['yamlls'].setup {on_attach = on_attach}
+lspconfig['jsonls'].setup {on_attach = on_attach}
+lspconfig['vimls'].setup {on_attach = on_attach}
+lspconfig['html'].setup {on_attach = on_attach}
+lspconfig['terraformls'].setup {on_attach = on_attach}
 
 -- require("lspconfig").sumneko_lua.setup({
 --     settings = {

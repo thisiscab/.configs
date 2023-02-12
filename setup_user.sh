@@ -4,7 +4,7 @@ function setup() {
     #setVimPluginManager 
     #setupBrew 
     setDotFiles
-    # setShell
+#    setShell
     #setAsdfVersionManager
     #
     #mkdir -p ~/src/personal/tmp
@@ -66,12 +66,12 @@ function setDotFiles() {
     do
         if [ "${STOW_FOLDERS[$i]}" == ".bin" ]; then
                 mkdir -p $HOME/.bin
-                stow --adopt -t $HOME/.bin -d ${STOW_FOLDERS[$i]} .bin
+                stow -t $HOME/.bin -d ${STOW_FOLDERS[$i]} .bin
         elif [ "${STOW_FOLDERS[$i]}" == "tmuxinator" ]; then
                 mkdir -p $HOME/.tmuxinator
-                stow --adopt -t $HOME/.tmuxinator -d ${STOW_FOLDERS[$i]} tmuxinator
+                stow -t $HOME/.tmuxinator -d ${STOW_FOLDERS[$i]} tmuxinator
         else
-                stow --adopt -R -t $HOME ${STOW_FOLDERS[$i]}
+                stow -R -t $HOME ${STOW_FOLDERS[$i]}
         fi
     done
 
