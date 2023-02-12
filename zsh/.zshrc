@@ -18,7 +18,6 @@ export LANG="C"
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS="--require-sha --no-quarantine"
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # try to Fuzzy-match
 zstyle ':completion:*' completer _complete _match _approximate
