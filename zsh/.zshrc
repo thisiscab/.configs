@@ -18,7 +18,7 @@ export LANG="C"
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS="--require-sha --no-quarantine"
-# eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # try to Fuzzy-match
 zstyle ':completion:*' completer _complete _match _approximate
@@ -96,3 +96,5 @@ function zvm_after_init() {
 
   bindkey -s '^p' "tmux-sessionizer\n"
 }
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
