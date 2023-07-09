@@ -203,6 +203,8 @@ keymap.set("n", "<Leader>SS", "vip:sort! u<CR>")
 keymap.set("v", "<Leader>ss", ":sort u<CR>")
 keymap.set("v", "<Leader>SS", ":sort! u<CR>")
 
+keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
+
 -- autocmd Syntax * syntax keyword GreenMarker NOTE note
 -- autocmd Syntax * syntax keyword YellowMarker TODO todo
 -- autocmd Syntax * syntax keyword RedMarker FIXME XXX fixme xxx

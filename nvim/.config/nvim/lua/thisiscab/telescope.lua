@@ -108,12 +108,13 @@ telescope.setup({
             --         ["<CR>"] = multiopen_selection,
             --     },
             -- },
-            find_command = { "rg", "--files", "--hidden", "--glob", "!**/{.git, node_modules}/*" },
+            -- find_command = { "rg", "--files", "--hidden", "--glob", "!**/{.git, node_modules}/*" },
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/{node_modules}/*" },
         },
     },
     extensions = {
         file_browser = {
-            hidden = true,
+            hidden = false,
             hijack_netrw = true,
             disable_devicons = true,
             mappings = {
