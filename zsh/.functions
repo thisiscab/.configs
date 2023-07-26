@@ -94,6 +94,14 @@ function work_in_progress() {
     fi
 }
 
+function gshow() {
+  if [[ -z "$1" ]]; then
+    git log --format=%B -n 1 $(git log -1 --pretty=format:"%h") | cat -
+  else
+    git log --format=%B -n 1 $1 | cat -
+  fi
+}
+
 # Check if main exists and use instead of master
 function git_main_branch() {
   command git rev-parse --git-dir &>/dev/null || return
@@ -122,5 +130,9 @@ function grename() {
 }
 
 function ogit() {
+    open $(git_origin_url)
+}
+
+function gopen() {
     open $(git_origin_url)
 }

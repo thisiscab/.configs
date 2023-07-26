@@ -41,9 +41,12 @@ packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
     use "neovim/nvim-lspconfig"
-    use "editorconfig/editorconfig-vim"
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'MunifTanjim/eslint.nvim'
+    -- use "editorconfig/editorconfig-vim"
 
     use {
+
         "christoomey/vim-tmux-navigator",
         event = {"VimEnter"},
         config = function() require("thisiscab.tmux") end
@@ -90,8 +93,8 @@ packer.startup(function(use)
 
     use {
         "nvim-telescope/telescope.nvim",
-        version = "0.1.0",
-        event = {"VimEnter"},
+        version = "0.1.0" ,
+        event = { "VimEnter" },
         requires = {
             "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
@@ -119,6 +122,15 @@ packer.startup(function(use)
             ]])
         end
 
+    }
+
+    use {
+      "tpope/vim-fugitive",
+      cmd = { "Git", "GBrowse", "GBlame" },
+      requires = {
+        "tpope/vim-rhubarb",
+        "shumphrey/fugitive-gitlab.vim",
+      },
     }
 
     use {"tomtom/tcomment_vim", event = "BufReadPre"}

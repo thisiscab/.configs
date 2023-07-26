@@ -16,7 +16,9 @@ Remap.inoremap = bind("i")
 
 local cmp = require("cmp")
 local comp = require("cmp_nvim_lsp")
+local configs = require('lspconfig.configs')
 local lspconfig = require("lspconfig")
+local util = require('lspconfig.util')
 local luasnip = require("luasnip")
 
 local has_words_before = function()
@@ -153,17 +155,48 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', "<leader>ts", vim.lsp.buf.signature_help, bufopts)
 end
 
+local null_ls = require("null-ls")
+local eslint = require("eslint")
+null_ls.setup()
+
+eslint.setup({
+  bin = 'eslint_d', -- or `eslint_d`
+  code_actions = {
+    enable = true,
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "type", -- or `save`
+  },
+})
+
 lspconfig['tsserver'].setup {on_attach = on_attach}
 lspconfig['pyright'].setup {on_attach = on_attach}
 lspconfig['bashls'].setup {on_attach = on_attach}
 lspconfig['cssls'].setup {on_attach = on_attach}
 lspconfig['dockerls'].setup {on_attach = on_attach}
-lspconfig['yamlls'].setup {on_attach = on_attach}
 lspconfig['jsonls'].setup {on_attach = on_attach}
 lspconfig['vimls'].setup {on_attach = on_attach}
 lspconfig['html'].setup {on_attach = on_attach}
 lspconfig['terraformls'].setup {on_attach = on_attach}
 
+if not configs.helm_ls then
+  configs.helm_ls = {
+    default_config = {
+      cmd = {"helm_ls", "serve"},
+      filetypes = {'helm'},
+      root_dir = function(fname)
+        return util.root_pattern('Chart.yaml')(fname)
+      end,
+    },
+  }
+end
+
+lspconfig.helm_ls.setup {
+  filetypes = {"helm"},
+  cmd = {"helm_ls", "serve"},
+}
 -- require("lspconfig").sumneko_lua.setup({
 --     settings = {
 --         Lua = {
@@ -186,3 +219,16 @@ lspconfig['terraformls'].setup {on_attach = on_attach}
 --     }
 -- })
 require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.completionProvider then
+      vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    end
+    if client.server_capabilities.definitionProvider then
+      vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+    end
+  end,
+})

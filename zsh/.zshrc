@@ -57,7 +57,8 @@ source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $(brew --prefix asdf)/libexec/asdf.sh
 
 autoload -Uz colors && colors
-autoload -Uz compinit && (compinit &)
+#autoload -Uz compinit && (compinit &)
+autoload -Uz compinit && compinit
 
 source $HOME/.zsh-theme
 source $HOME/.aliases
@@ -98,3 +99,7 @@ function zvm_after_init() {
 }
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
