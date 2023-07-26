@@ -106,6 +106,15 @@ packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
     use {
+      "tpope/vim-fugitive",
+      cmd = { "Git", "GBrowse", "GBlame" },
+      requires = {
+        "tpope/vim-rhubarb",
+        "shumphrey/fugitive-gitlab.vim",
+      },
+    }
+
+    use {
         "tpope/vim-fugitive",
         cmd = {"Git", "GBrowse", "GBlame"},
         requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
