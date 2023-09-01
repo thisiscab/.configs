@@ -1,7 +1,7 @@
 ## Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 window:
-  decorations: buttonless
+  decorations: none
   startup_mode: Windowed
 
 # Font configuration (changes require restart)

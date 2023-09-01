@@ -104,9 +104,9 @@ telescope.setup({
         }
     },
     extensions = {
-      cder = {
-        dir_command = { 'fd', '--type=d', '.', os.getenv('HOME') .. "/src/work/chord" },
-      },
+      -- cder = {
+      --   dir_command = { 'fd', '--type=d', '.', os.getenv('HOME') .. "/src/work/chord" },
+      -- },
         file_browser = {
             hidden = false,
             hijack_netrw = true,
@@ -146,4 +146,3 @@ telescope.setup({
 
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "fzf"
-require("telescope").load_extension "cder"

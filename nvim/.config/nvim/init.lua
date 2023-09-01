@@ -107,7 +107,7 @@ packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
     use {
-        "zane-/cder.nvim",
+        -- "zane-/cder.nvim",
         requires = {
           "nvim-telescope/telescope.nvim",
         },
@@ -138,9 +138,6 @@ packer.startup(function(use)
 
     use {"tomtom/tcomment_vim", event = "BufReadPre"}
 
-
-    use {"tomtom/tcomment_vim", event = "BufReadPre"}
-
     use {
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
@@ -161,7 +158,7 @@ keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
 keymap.set("n", "<Leader>fb", ":Telescope file_browser<CR>")
 
 -- cder
-keymap.set("n", "<leader>cd", ":Telescope cder<CR>")
+--keymap.set("n", "<leader>cd", ":Telescope cder<CR>")
 
 -- Fugitive
 keymap.set("n", "<leader>gs", ":Git<CR>", {silent = true})
