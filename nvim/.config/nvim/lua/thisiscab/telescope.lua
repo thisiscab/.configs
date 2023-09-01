@@ -4,26 +4,20 @@ local telescopeConfig = require("telescope.config")
 local action_state = require("telescope.actions.state")
 local actions = require("telescope.actions")
 
-local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
--- I want to search in hidden/dot files.
-table.insert(vimgrep_arguments, "--hidden")
--- I don't want to search in the `.git` directory.
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!{.git, node_modules}/*")
+local vimgrep_arguments = {unpack(telescopeConfig.values.vimgrep_arguments)}
 
 local function multiopen(prompt_bufnr, method)
     local edit_file_cmd_map = {
         vertical = "vsplit",
         horizontal = "split",
         tab = "tabedit",
-        default = "edit",
+        default = "edit"
     }
     local edit_buf_cmd_map = {
         vertical = "vert sbuffer",
         horizontal = "sbuffer",
         tab = "tab sbuffer",
-        default = "buffer",
+        default = "buffer"
     }
     local picker = action_state.get_current_picker(prompt_bufnr)
     local multi_selection = picker:get_multi_selection()
@@ -42,9 +36,7 @@ local function multiopen(prompt_bufnr, method)
                 col = vim.F.if_nil(entry.col, 1)
             elseif not entry.bufnr then
                 local value = entry.value
-                if not value then
-                    return
-                end
+                if not value then return end
 
                 if type(value) == "table" then
                     value = entry.display
@@ -64,17 +56,20 @@ local function multiopen(prompt_bufnr, method)
                     vim.api.nvim_buf_set_option(entry_bufnr, "buflisted", true)
                 end
                 local command = i == 1 and "buffer" or edit_buf_cmd_map[method]
-                pcall(vim.cmd, string.format("%s %s", command, vim.api.nvim_buf_get_name(entry_bufnr)))
+                pcall(vim.cmd, string.format("%s %s", command, vim.api
+                                                 .nvim_buf_get_name(entry_bufnr)))
             else
                 local command = i == 1 and "edit" or edit_file_cmd_map[method]
                 if vim.api.nvim_buf_get_name(0) ~= filename or command ~= "edit" then
-                    filename = require("plenary.path"):new(vim.fn.fnameescape(filename)):normalize(vim.loop.cwd())
+                    filename = require("plenary.path"):new(vim.fn.fnameescape(
+                                                               filename))
+                                   :normalize(vim.loop.cwd())
                     pcall(vim.cmd, string.format("%s %s", command, filename))
                 end
             end
 
             if row and col then
-                pcall(vim.api.nvim_win_set_cursor, 0, { row, col - 1 })
+                pcall(vim.api.nvim_win_set_cursor, 0, {row, col - 1})
             end
         end
     else
@@ -89,17 +84,12 @@ end
 telescope.setup({
     defaults = {
         mappings = {
-            i = {
-                ["<C-s>"] = "select_all",
-            },
-            n = {
-                ["<C-s>"] = "select_all",
-            },
+            i = {["<C-s>"] = "select_all"},
+            n = {["<C-s>"] = "select_all"}
 
         },
         hidden = true,
         respect_gitignore = false,
-        vimgrep_arguments = vimgrep_arguments,
     },
     pickers = {
         find_files = {
@@ -108,9 +98,10 @@ telescope.setup({
             --         ["<CR>"] = multiopen_selection,
             --     },
             -- },
-            -- find_command = { "rg", "--files", "--hidden", "--glob", "!**/{.git, node_modules}/*" },
-            find_command = { "rg", "--files", "--hidden", "--glob", "!**/{node_modules}/*" },
-        },
+            find_command = {
+                "rg", "--files", "--hidden", "--glob", "!{.git,node_modules}/*"
+            }
+        }
     },
     extensions = {
         file_browser = {
@@ -118,24 +109,41 @@ telescope.setup({
             hijack_netrw = true,
             disable_devicons = true,
             mappings = {
-                i = { 
+                i = {
                     ["<C-r>"] = function(prompt_bufnr)
-                    local git_root_path =
-                        require("plenary.job"):new({ command = "git", args = { "rev-parse", "--show-toplevel" } }):sync()[1]
-                    local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-                    local finder = current_picker.finder
-                    -- if finder.files then
+                        local git_root_path =
+                            require("plenary.job"):new({
+                                command = "git",
+                                args = {"rev-parse", "--show-toplevel"}
+                            }):sync()[1]
+                        local current_picker =
+                            require("telescope.actions.state").get_current_picker(
+                                prompt_bufnr)
+                        local finder = current_picker.finder
+                        -- if finder.files then
                         finder.path = git_root_path
-                    -- else
+                        -- else
                         -- finder.cwd = git_root_path
-                    -- end
-                    require("telescope._extensions.file_browser.utils").redraw_border_title(current_picker)
-                    current_picker:refresh(finder, { reset_prompt = true, multi = current_picker._multi })
+                        -- end
+                        require("telescope._extensions.file_browser.utils").redraw_border_title(
+                            current_picker)
+                        current_picker:refresh(finder, {
+                            reset_prompt = true,
+                            multi = current_picker._multi
+                        })
                     end
                 }
             }
         },
-    },
+        fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+        }
+    }
 })
 
 require("telescope").load_extension "file_browser"
+require("telescope").load_extension "fzf"

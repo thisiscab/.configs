@@ -29,132 +29,108 @@ opt.relativenumber = true
 vim.cmd('packadd packer.nvim')
 
 local packer = require 'packer'
--- Performance
-pcall(require, "impatient")
 
 local util = require 'packer.util'
 
 packer.init({
-  package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
+    package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
 })
 
 --- startup and add configure plugins
 packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
-    -- Performance
-    use "lewis6991/impatient.nvim"
-
     use "neovim/nvim-lspconfig"
     use "editorconfig/editorconfig-vim"
 
     use {
         "christoomey/vim-tmux-navigator",
-        event = { "VimEnter" },
-        config = function ()
-            require("thisiscab.tmux")
-        end,
+        event = {"VimEnter"},
+        config = function() require("thisiscab.tmux") end
     }
-
-    -- use {
-    --     "vim-airline/vim-airline",
-    --     event = { "VimEnter" },
-    --     config = function ()
-    --         require("thisiscab.airline")
-    --     end,
-    -- }
-    -- use 'itchyny/lightline.vim'
 
     use {
         "sainnhe/gruvbox-material",
-        config = function ()
+        config = function()
             vim.opt.termguicolors = true
             vim.opt.background = "dark"
             vim.cmd("colorscheme gruvbox-material")
-        end,
+        end
     }
     use {
         "nvim-treesitter/nvim-treesitter",
         run = ':TSUpdate',
-        config = function ()
-            require("thisiscab.treesitter")
-        end,
+        config = function() require("thisiscab.treesitter") end
     }
 
     use {
         "hashivim/vim-terraform",
-        ft = { "terraform" },
-        config = function ()
-            require("thisiscab.terraform")
-        end,
+        ft = {"terraform"},
+        config = function() require("thisiscab.terraform") end
     }
 
     use {
         "sbdchd/neoformat",
-        cmd = { "Neoformat" },
-        config = function ()
-            require("thisiscab.neoformat")
-        end,
+        cmd = {"Neoformat"},
+        config = function() require("thisiscab.neoformat") end
     }
 
     use {
         "hrsh7th/nvim-cmp",
         requires = {
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-calc",
-            "hrsh7th/cmp-emoji",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer", "hrsh7th/cmp-calc", "hrsh7th/cmp-emoji",
+            "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline", "hrsh7th/cmp-nvim-lsp",
 
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
+            "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip"
         },
-        config = function ()
-            require("thisiscab.lsp")
-        end,
+        config = function() require("thisiscab.lsp") end
     }
 
-    use { "rafamadriz/friendly-snippets" }
+    use {"rafamadriz/friendly-snippets"}
 
     use {
         "nvim-telescope/telescope.nvim",
-        version = "0.1.0" ,
-        event = { "VimEnter" },
+        version = "0.1.0",
+        event = {"VimEnter"},
         requires = {
-            "nvim-lua/plenary.nvim",
+            "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
-            'nvim-telescope/telescope-file-browser.nvim',
+            'nvim-telescope/telescope-file-browser.nvim'
         },
-        config = function ()
-            require("thisiscab.telescope")
-        end,
+        config = function() require("thisiscab.telescope") end
+    }
+
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+
+    use {
+        "tpope/vim-fugitive",
+        cmd = {"Git", "GBrowse", "GBlame"},
+        requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
     }
 
     use {
-      "tpope/vim-fugitive",
-      cmd = { "Git", "GBrowse", "GBlame" },
-      requires = {
-        "tpope/vim-rhubarb",
-        "shumphrey/fugitive-gitlab.vim",
-      },
+        "mattn/vim-gist",
+        requires = {"mattn/webapi-vim"},
+        config = function() 
+            vim.cmd([[
+                let g:gist_clip_command = 'pbcopy'
+                let g:gist_detect_filetype = 1
+                let g:gist_post_private = 1
+            ]])
+        end
+
     }
 
-    use {
-        "tomtom/tcomment_vim",
-        event = "BufReadPre",
-    }
+    use {"tomtom/tcomment_vim", event = "BufReadPre"}
+
     use {
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview" },
-        ft = { "markdown", "vim-plug" },
-        config = function ()
-            require("thisiscab.markdown-preview")
-        end,
+        cmd = {"MarkdownPreviewToggle", "MarkdownPreview"},
+        ft = {"markdown", "vim-plug"},
+        config = function() require("thisiscab.markdown-preview") end
     }
-end
-)
+end)
 
 -- NeoFormat
 keymap.set("n", "<leader>ff", ":Neoformat<CR>")
@@ -167,13 +143,13 @@ keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
 keymap.set("n", "<Leader>fb", ":Telescope file_browser<CR>")
 
 -- Fugitive
-keymap.set("n", "<leader>gs", ":Git<CR>", { silent = true })
-keymap.set("n", "<leader>gd", ":Gdiff<CR>", { silent = true })
-keymap.set("n", "<leader>gc", ":Git commit<CR>", { silent = true })
-keymap.set("n", "<leader>gb", ":Git blame<CR>", { silent = true })
-keymap.set("n", "<leader>gl", ":Gclog<CR>", { silent = true })
-keymap.set("n", "<leader>gw", ":Gbrowse<CR>", { silent = true })
-keymap.set("n", "<leader>gp", ":Git push<CR>", { silent = true })
+keymap.set("n", "<leader>gs", ":Git<CR>", {silent = true})
+keymap.set("n", "<leader>gd", ":Gdiff<CR>", {silent = true})
+keymap.set("n", "<leader>gc", ":Git commit<CR>", {silent = true})
+keymap.set("n", "<leader>gb", ":Git blame<CR>", {silent = true})
+keymap.set("n", "<leader>gl", ":Gclog<CR>", {silent = true})
+keymap.set("n", "<leader>gw", ":Gbrowse<CR>", {silent = true})
+keymap.set("n", "<leader>gp", ":Git push<CR>", {silent = true})
 
 -- Markdown Preview
 keymap.set("n", "<Leader>mp", ":MarkdownPreviewToggle<CR>")
@@ -182,7 +158,6 @@ keymap.set("n", "<Leader>mp", ":MarkdownPreviewToggle<CR>")
 keymap.set("n", "<Leader>rtw", ":%s/\\s\\+$//e<CR>")
 keymap.set("n", "<Leader>snr", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 keymap.set("n", "<Leader>pwd", ':echo expand("%:p")<CR>')
-keymap.set("n", "<Leader>ss", ":luafile $MYVIMRC<CR>")
 keymap.set("n", "<Leader>cs", ":noh<CR>")
 
 -- Buffer Navigation
