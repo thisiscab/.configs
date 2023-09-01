@@ -23,6 +23,11 @@ function brews() {
     brew "luarocks"
     brew "shfmt"
     brew "black"
+    brew "tree"
+    brew "htop"
+    brew "yaml-language-server"
+    brew "bash-language-server"
+    brew "typescript-language-server"
 
 EOF
 }
