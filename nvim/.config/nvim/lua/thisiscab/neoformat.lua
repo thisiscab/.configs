@@ -13,7 +13,8 @@ g.neoformat_enabled_javascript = {"prettier"}
 g.neoformat_enabled_json = {"prettier"}
 g.neoformat_enabled_ruby = {"prettier"}
 
-g:neoformat_try_node_exe = 1
+g.neoformat_try_node_exe = 1
+g.neoformat_run_all_formatters = 1
 g.neoformat_enabled_typescript = {"eslint_d", "prettier"}
 g.neoformat_enabled_vue = {"prettier"}
 g.neoformat_enabled_yaml = {"prettier"}

@@ -104,6 +104,9 @@ telescope.setup({
         }
     },
     extensions = {
+      cder = {
+        dir_command = { 'fd', '--type=d', '.', os.getenv('HOME') .. "/src/work/chord" },
+      },
         file_browser = {
             hidden = false,
             hijack_netrw = true,
@@ -111,26 +114,22 @@ telescope.setup({
             mappings = {
                 i = {
                     ["<C-r>"] = function(prompt_bufnr)
-                        local git_root_path =
-                            require("plenary.job"):new({
-                                command = "git",
-                                args = {"rev-parse", "--show-toplevel"}
-                            }):sync()[1]
-                        local current_picker =
-                            require("telescope.actions.state").get_current_picker(
-                                prompt_bufnr)
-                        local finder = current_picker.finder
-                        -- if finder.files then
-                        finder.path = git_root_path
-                        -- else
-                        -- finder.cwd = git_root_path
-                        -- end
+                    local git_root_path =
+                        require("plenary.job"):new({ command = "git", args = { "rev-parse", "--show-toplevel" } }):sync()[1]
+                    local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+                    local finder = current_picker.finder
+                     if finder.files then
                         require("telescope._extensions.file_browser.utils").redraw_border_title(
                             current_picker)
                         current_picker:refresh(finder, {
                             reset_prompt = true,
                             multi = current_picker._multi
                         })
+                    else
+                        finder.cwd = git_root_path
+                    end
+                    require("telescope._extensions.file_browser.utils").redraw_border_title(current_picker)
+                    current_picker:refresh(finder, { reset_prompt = true, multi = current_picker._multi })
                     end
                 }
             }
@@ -147,3 +146,4 @@ telescope.setup({
 
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "fzf"
+require("telescope").load_extension "cder"

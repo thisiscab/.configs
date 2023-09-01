@@ -93,10 +93,11 @@ packer.startup(function(use)
 
     use {
         "nvim-telescope/telescope.nvim",
-        version = "0.1.0" ,
+        tag = "0.1.1" ,
         event = { "VimEnter" },
         requires = {
-            "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-lua/plenary.nvim", 
+	    "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             'nvim-telescope/telescope-file-browser.nvim'
         },
@@ -106,18 +107,11 @@ packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
     use {
-      "tpope/vim-fugitive",
-      cmd = { "Git", "GBrowse", "GBlame" },
-      requires = {
-        "tpope/vim-rhubarb",
-        "shumphrey/fugitive-gitlab.vim",
-      },
-    }
-
-    use {
-        "tpope/vim-fugitive",
-        cmd = {"Git", "GBrowse", "GBlame"},
-        requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
+        "zane-/cder.nvim",
+        requires = {
+          "nvim-telescope/telescope.nvim",
+        },
+        config = function() require("cder") end
     }
 
     use {
@@ -144,6 +138,9 @@ packer.startup(function(use)
 
     use {"tomtom/tcomment_vim", event = "BufReadPre"}
 
+
+    use {"tomtom/tcomment_vim", event = "BufReadPre"}
+
     use {
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
@@ -162,6 +159,9 @@ keymap.set("n", "<Leader>sl", ":Telescope find_files<CR>")
 keymap.set("n", "<Leader>sf", ":Telescope live_grep<CR>")
 keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
 keymap.set("n", "<Leader>fb", ":Telescope file_browser<CR>")
+
+-- cder
+keymap.set("n", "<leader>cd", ":Telescope cder<CR>")
 
 -- Fugitive
 keymap.set("n", "<leader>gs", ":Git<CR>", {silent = true})
