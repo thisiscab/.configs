@@ -3,7 +3,8 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/src -mindepth 1 -maxdepth 4 -type d -exec test -d '{}/.git' ';' -print -prune | fzf --height 30%)
+    # selected=$(find ~/src -mindepth 1 -maxdepth 4 -type d -exec test -d '{}/.git' ';' -print -prune | fzf --height 30%)
+    selected=$(find ~/src -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name "package.json" -or -name ".git" -or -name ".poop" \) -print -prune | uniq | xargs -n1 dirname | sort | fzf --height 30%)
 fi
 
 if [[ -z $selected ]]; then
@@ -23,3 +24,19 @@ if ! tmux has-session -t=$selected_name 2>/dev/null; then
 fi
 
 tmux switch-client -t $selected_name
+
+#find ~/src/personal -mindepth 1 -maxdepth 4 -type d -d \
+#-not \( -path "*/node_modules/*" -or  \
+#        -path "*/.yarn/*" -or  \
+#        -path "*/lib/*" -or \
+#        -path "*/dist/*" -or \
+#        -path "*/.git/*" -or \
+#        -path "*/.github/*" \)  \
+#-prune \
+#-exec test -e '{}/.pkeep' ';' \
+#-or -exec test -e '{}/package.json' ';' \
+#-or -exec test -d '{}/.git' ';' \
+#-print -prune  
+
+# find ~/src -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name "package.json" -or -name ".git" \) -print -prune | uniq | xargs n1 dirname | sort | fzf --height 30%
+# find ~/src -mindepth 1 -maxdepth 4 -type f -d \ -not \( -path "*/node_modules/*" -or  \ -path "*/.yarn/*" -or  \ -path "*/lib/*" -or \ -path "*/dist/*" -or \ -path "*/.git/*" -or \ -path "*/.sl/*" -or \ -path "*/.github/*" -prune \)  \ \( -name "package.json" -or -name ".git" \) \ -print -prune | uniq | xargs n1 dirname | sort

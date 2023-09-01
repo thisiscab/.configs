@@ -23,7 +23,7 @@ opt.softtabstop = 4
 opt.number = true
 opt.relativenumber = true
 
-opt.complete = "kspell"
+-- opt.complete = vim.opt.complete .. "kspell"
 -- o.completeopt = "menu,menuone,noselect"
 
 vim.cmd('packadd packer.nvim')

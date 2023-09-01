@@ -36,7 +36,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Other navigation stuf
     alias ..='cd ..'
     alias ...='cd ../..'
-    alias cdr="cd $(git rev-parse --show-toplevel)"
+    # alias cdr="cd $(git rev-parse --show-toplevel)"
 
     # alias motherbraincp="scp -i ~/.ssh/personal_rsa -P 666 first_floor.svg pi@192.168.0.183:/home/pi/"
     # alias bfg="java -jar ~/.bin/bfg.jar"
@@ -52,7 +52,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Git Aliases
     alias wip='work_in_progress'
-    alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no--verboseerify -m "--wip-- [skip ci]"'
+    alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
     alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 
     alias g='git'

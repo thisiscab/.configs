@@ -65,9 +65,9 @@ source $HOME/.functions
 
 
 # tmux_running=$(pgrep tmux)
-if [[ -z $TMUX ]]; then
-  tmuxinator default
-fi
+# if [[ -z $TMUX ]]; then
+#   tmuxinator default
+# fi
 
 if [[ -f "$HOME/src/personal/.configs_personal/zsh/.aliases_personal" ]]; then
   source $HOME/.aliases_personal
