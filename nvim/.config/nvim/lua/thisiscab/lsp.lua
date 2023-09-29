@@ -193,10 +193,10 @@ if not configs.helm_ls then
   }
 end
 
-lspconfig.helm_ls.setup {
-  filetypes = {"helm"},
-  cmd = {"helm_ls", "serve"},
-}
+vim.diagnostic.config({
+  virtual_text = false
+})
+
 -- require("lspconfig").sumneko_lua.setup({
 --     settings = {
 --         Lua = {
