@@ -116,14 +116,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias glgg='git log --graph'
     alias glgga='git log --graph --decorate --all'
     alias glgm='git log --graph --max-count=10'
-    alias glo='git log --oneline --decorate'
+    alias glo='git log --oneline --decorate --max-count=25'
     alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'"
     alias glols="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat"
-    alias glod="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'"
-    alias glods="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
-    alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all"
-    alias glog='git log --oneline --decorate --graph'
-    alias gloga='git log --oneline --decorate --graph --all'
+    # alias glod="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'"
+    # alias glods="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
+    # alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all"
+    # alias glog='git log --oneline --decorate --graph'
+    # alias gloga='git log --oneline --decorate --graph --all'
 
     alias gr='git remote'
     alias gra='git remote add'
@@ -156,10 +156,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
  
     alias createmr="git commit --amend --no-edit && git push --force-with-lease -o merge_request.create -o merge_request.assign='cab' -o merge_request.draft"
     alias delmerged='git branch --merged | egrep -v "(^\*|master|main)" | xargs git branch -d'
+    alias cleanbranch='git branch --merged | egrep -v "(^\*|master|main)" | xargs git branch -d'
     alias deletemerged='git branch --merged | egrep -v "(^\*|master|main)" | xargs git branch -d'
 
     alias getRepoUrl="git config --get remote.origin.url | sed -e 's/:/\//g'| sed -e 's/ssh\/\/\///g'| sed -e 's/git@/https:\/\//g'| sed -e 's/\.git$//'"
     alias openmr='(PROJECT_URL=`getRepoUrl`; BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`; URL=$PROJECT_URL"/pull/new/"$BRANCH_NAME; open $URL)'
+    alias omr='openmr'
 
     alias lad="sh script/lint-workflow && sh script/deploy-local"
 fi

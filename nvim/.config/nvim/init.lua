@@ -22,6 +22,7 @@ opt.softtabstop = 2
 
 opt.number = true
 opt.relativenumber = true
+vim.cmd('set iskeyword+=-')
 
 -- opt.complete = vim.opt.complete .. "kspell"
 -- o.completeopt = "menu,menuone,noselect"
