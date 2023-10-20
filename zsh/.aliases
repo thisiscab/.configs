@@ -81,6 +81,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gc!='git commit --verbose --no-edit --amend'
     alias gca='git commit --verbose --all'
     alias gca!='git commit --verbose --all --no-edit --amend'
+    alias unamend='git reset --soft HEAD@{1}'
 
     alias gcb='git checkout -b'
     alias gcm='git checkout $(git_main_branch)'
