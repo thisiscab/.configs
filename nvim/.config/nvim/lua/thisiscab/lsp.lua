@@ -171,6 +171,19 @@ eslint.setup({
   },
 })
 
+-- if not configs.dbtls then
+--     configs.dbtls = {
+--         default_config = {
+--             root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
+--             cmd = { 'dbt-language-server', '--stdio' },
+--             filetypes = { "sql" },
+--             init_options = { pythonInfo = { path = 'python' }, lspMode = 'dbtProject', enableSnowflakeSyntaxCheck = true }
+--         },
+--     }
+-- end
+--
+-- lspconfig.dbtls.setup{}
+
 lspconfig['tsserver'].setup {on_attach = on_attach}
 lspconfig['pyright'].setup {on_attach = on_attach}
 lspconfig['bashls'].setup {on_attach = on_attach}
