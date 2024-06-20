@@ -25,6 +25,7 @@ function brews() {
     brew "black"
     brew "tree"
     brew "htop"
+    brew "gopls"
     brew "yaml-language-server"
     brew "bash-language-server"
     brew "typescript-language-server"
@@ -34,7 +35,6 @@ EOF
 
 function casks() {
     brew bundle --file=- <<EOF
-
     cask "alfred"
     cask "vlc"
     cask "spectacle"

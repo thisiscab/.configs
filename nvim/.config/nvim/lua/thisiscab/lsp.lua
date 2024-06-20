@@ -181,6 +181,7 @@ lspconfig['vimls'].setup {on_attach = on_attach}
 lspconfig['html'].setup {on_attach = on_attach}
 lspconfig['terraformls'].setup {on_attach = on_attach}
 lspconfig['sqlls'].setup {on_attach = on_attach}
+lspconfig['gopls'].setup {on_attach = on_attach}
 
 
 if not configs.helm_ls then
