@@ -3,8 +3,8 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    # selected=$(find ~/src/work -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name ".pj" \) -print -prune | uniq | xargs -n1 dirname | sort | fzf --height 30%)
-    selected=$(find ~/src/ -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name ".poop" \) -print -prune | uniq | xargs -n1 dirname | sort | fzf --height 30%)
+    selected=$(find ~/src/work -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name ".pj" \) -print -prune | uniq | xargs -n1 dirname | sort | fzf --height 30%)
+    # selected=$(find ~/src/ -mindepth 1 -maxdepth 4 -type f -d -not \( -path "*/node_modules/*" -or -path "*/.yarn/*" -or -path "*/lib/*" -or -path "*/dist/*" -or -path "*/.git/*" -or -path "*/.sl/*" -or -path "*/.github/*" -prune \) \( -name ".pj" \) -print -prune | uniq | xargs -n1 dirname | sort | fzf --height 30%)
 fi
 
 if [[ -z $selected ]]; then

@@ -1,12 +1,18 @@
 items:
 - checked: false
-  checkedicon: X
+  checkedicon: x
+  date: null
+  tags: []
+  text: do somethig
+  uncheckedicon: ' '
+- checked: false
+  checkedicon: x
   date: null
   tags: []
   text: test
   uncheckedicon: ' '
 - checked: true
-  checkedicon: X
+  checkedicon: x
   date: null
   tags: []
   text: test

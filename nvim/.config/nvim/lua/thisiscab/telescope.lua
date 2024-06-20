@@ -90,6 +90,7 @@ telescope.setup({
         },
         hidden = true,
         respect_gitignore = false,
+        preview = false
     },
     pickers = {
         find_files = {
@@ -99,7 +100,7 @@ telescope.setup({
             --     },
             -- },
             find_command = {
-                "rg", "--files", "--hidden", "--glob", "!{.git,node_modules}/*"
+                "rg", "--files", "--hidden", "--glob", "!{**/.git,**/node_modules,**/.yarn,**/.postman,**/cli/bin}/*"
             }
         }
     },

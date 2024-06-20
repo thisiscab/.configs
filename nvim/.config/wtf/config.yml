@@ -5,14 +5,46 @@ wtf:
       focused: orange
       normal: gray
   grid:
-    columns: [32, 32, 32, 32, 90]
-    rows: [10, 10, 10, 4, 4, 90]
-  refreshInterval: 1
+    columns: []
+    rows: []
+  refreshInterval: 5
   mods:
+    github:
+      apiKey: ""
+      baseURL: ""
+      customQueries:
+        toReview:
+          title: "Have to review"
+          filter: "is:open is:pr user-review-requested:thisiscab"
+        myReviewable:
+          title: "My Reviewable Pull Requests"
+          filter: "is:open draft:false is:pr author:thisiscab"
+        others:
+          title: "Others Pull Requests"
+          filter: "is:open is:pr -author:thisiscab"
+        myDraft:
+          title: "My Draft Pull Requests"
+          filter: "is:open draft:true is:pr author:thisiscab"
+      enabled: true
+      enableStatus: true
+      showStats: false
+      showMyPullRequests: false
+      showOpenReviewRequests: false
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 4
+      refreshInterval: 5m
+      repositories:
+        - "chordcommerce/duet"
+        - "chordcommerce/steward"
+        - "chordcommerce/dbt_chord"
+      username: "thisiscab"
     todoList:
       type: todo
       enabled: true
-      checkedIcon: "X"
+      checkedIcon: "x"
       colors:
         checked: gray
         highlight:
@@ -20,7 +52,24 @@ wtf:
           back: "orange"
       filename: "todo.yml"
       position:
-        top: 2
+        top: 1
         left: 2
-        height: 2
+        height: 1
+        width: 2
+    asana:
+      enabled: true
+      apiKey: ""
+      mode: "workspace"
+      workspaceId: 1200401219382931
+      allUsers: false
+      hideComplete: true
+      # sections:
+      #   - "Doing"
+      #   - "Backlog"
+      #   - "Complete"
+      updateInterval: 300
+      position:
+        top: 0
+        left: 0
         width: 1
+        height: 3

@@ -79,6 +79,8 @@ packer.startup(function(use)
         config = function() require("thisiscab.neoformat") end
     }
 
+    use {"L3MON4D3/LuaSnip", run = "make install_jsregexp"}
+
     use {
         "hrsh7th/nvim-cmp",
         requires = {
@@ -94,11 +96,9 @@ packer.startup(function(use)
 
     use {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.1" ,
-        event = { "VimEnter" },
+        event = {"VimEnter"},
         requires = {
-            "nvim-lua/plenary.nvim", 
-	    "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             'nvim-telescope/telescope-file-browser.nvim'
         },
@@ -108,17 +108,14 @@ packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
     use {
-        -- "zane-/cder.nvim",
-        requires = {
-          "nvim-telescope/telescope.nvim",
-        },
+        requires = {"nvim-telescope/telescope.nvim"},
         config = function() require("cder") end
     }
 
     use {
         "mattn/vim-gist",
         requires = {"mattn/webapi-vim"},
-        config = function() 
+        config = function()
             vim.cmd([[
                 let g:gist_clip_command = 'pbcopy'
                 let g:gist_detect_filetype = 1
@@ -129,15 +126,16 @@ packer.startup(function(use)
     }
 
     use {
-      "tpope/vim-fugitive",
-      cmd = { "Git", "GBrowse", "GBlame" },
-      requires = {
-        "tpope/vim-rhubarb",
-        "shumphrey/fugitive-gitlab.vim",
-      },
+        "tpope/vim-fugitive",
+        cmd = {"Git", "GBrowse", "GBlame"},
+        requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
     }
 
     use {"tomtom/tcomment_vim", event = "BufReadPre"}
+
+    use {"fatih/vim-go", ft = {"go"}}
+
+    use {"mpas/marp-nvim"}
 
     use {
         "iamcco/markdown-preview.nvim",
@@ -159,7 +157,7 @@ keymap.set("n", "<Leader>sb", ":Telescope buffers<CR>")
 keymap.set("n", "<Leader>fb", ":Telescope file_browser<CR>")
 
 -- cder
---keymap.set("n", "<leader>cd", ":Telescope cder<CR>")
+-- keymap.set("n", "<leader>cd", ":Telescope cder<CR>")
 
 -- Fugitive
 keymap.set("n", "<leader>gs", ":Git<CR>", {silent = true})

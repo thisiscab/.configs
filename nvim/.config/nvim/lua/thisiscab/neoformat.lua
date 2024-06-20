@@ -4,6 +4,8 @@ local g = vim.g
 g.neoformat_basic_format_trim = 1
 g.neoformat_basic_format_retab = 1
 g.neoformat_basic_format_align = 0
+g.neoformat_run_all_formatters = 1
+g.neoformat_try_node_exe = 1
 
 g.neoformat_enabled_lua = {"luaformat"}
 
@@ -17,8 +19,8 @@ g.neoformat_try_node_exe = 1
 g.neoformat_run_all_formatters = 1
 g.neoformat_enabled_typescript = {"eslint_d", "prettier"}
 -- g.neoformat_enabled_typescript = {"prettier"}
-g.neoformat_enabled_typescript = {"denofmt"}
-g.neoformat_enabled_typescriptreact = {"denofmt"}
+-- g.neoformat_enabled_typescript = {"denofmt"}
+-- g.neoformat_enabled_typescriptreact = {"denofmt"}
 g.neoformat_enabled_vue = {"prettier"}
 g.neoformat_enabled_yaml = {"prettier"}
 g.neoformat_enabled_helm = {"prettier"}

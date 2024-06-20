@@ -3,9 +3,9 @@
 [github]
     user = thisiscab
 [user]
-    email = me@thisis.cab
+    email = me+github@thisis.cab
     name = CAB CAB
-    signingkey = A22220B4A87FABAE
+    signingkey = 57F43CF654D06C85 
 [push]
     default = simple
     followTags = true
@@ -41,12 +41,9 @@
     directory = /usr/local/Homebrew
 [gpg]
     program = /usr/local/bin/gpg
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [init]
 	defaultBranch = main
 [advice]
    detachedHead = false
+[http]
+	postBuffer = 157286400

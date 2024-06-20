@@ -19,12 +19,28 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias lsf='ls -aF'
 
     # Directory Navigation
+    alias ..='cd ..'
+    alias ...='cd ../..'
     alias dk="cd ~/Desktop"
     alias doc="cd ~/Documents"
     alias dl="cd ~/Downloads"
-    alias odk="open ~/Desktop"
-    alias odoc="open ~/Documents"
-    alias odl="open ~/Downloads"
+    alias gconfigs="cd ~/src/personal/.configs/"
+    alias groot="cd $(git rev-parse --show-toplevel)"
+    alias gcli="cd ~/src/work/chord/steward/node/apps/cli"
+    alias gserver="cd ~/src/work/chord/steward/node/apps/server"
+    alias gts="cd ~/src/work/chord/steward/node/libs/typescript"
+    alias gapi="cd ~/src/work/chord/steward/node/configs/api-contract"
+    alias gcontract="gapi"
+    alias goconfigs="gconfigs"
+    alias goroot="groot"
+    alias gocli="gcli"
+    alias goserver="gserver"
+    alias gots="gts"
+    alias goapi="gapi"
+    alias gocontact="gapi"
+    # alias odk="open ~/Desktop"
+    # alias odoc="open ~/Documents"
+    # alias odl="open ~/Downloads"
 
     # Stuff
     alias dud='du -d 1 -h'
@@ -34,9 +50,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ds='dirs --verbose'
 
     # Other navigation stuf
-    alias ..='cd ..'
-    alias ...='cd ../..'
-    # alias cdr="cd $(git rev-parse --show-toplevel)"
 
     # alias motherbraincp="scp -i ~/.ssh/personal_rsa -P 666 first_floor.svg pi@192.168.0.183:/home/pi/"
     # alias bfg="java -jar ~/.bin/bfg.jar"
@@ -81,6 +94,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gc!='git commit --verbose --no-edit --amend'
     alias gca='git commit --verbose --all'
     alias gca!='git commit --verbose --all --no-edit --amend'
+    alias gca!!='git commit --verbose --all --no-edit --amend --no-verify'
     alias unamend='git reset --soft HEAD@{1}'
 
     alias gcb='git checkout -b'
@@ -152,8 +166,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     alias codespell='codespell --config ~/.codespellrc'
     alias cs='codespell'
-
-    alias wtf=wtfutil
  
     alias createmr="git commit --amend --no-edit && git push --force-with-lease -o merge_request.create -o merge_request.assign='cab' -o merge_request.draft"
     alias delmerged='git branch --merged | egrep -v "(^\*|master|main)" | xargs git branch -d'
@@ -165,4 +177,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias omr='openmr'
 
     alias lad="sh script/lint-workflow && sh script/deploy-local"
+    alias iv='| vim -R -c ":map Q :q!<enter>" -'
 fi
