@@ -40,7 +40,7 @@ function casks() {
     cask "spectacle"
     cask "docker"
     cask "alacritty"
-    cask "firefox"
+    # cask "firefox"
 
 EOF
 }

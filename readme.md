@@ -1,6 +1,4 @@
 - `git clone git@github.com/thisiscab/.configs`
-- ? `git clone git@github.com/thisiscab/.configs_personal.git`
-- ? `git clone git@github.com/thisiscab/.configs_work.git`
 
 **On admin user**
 
@@ -13,7 +11,7 @@
 ## Vim
 
 - `vim`
-- `:PluginInstall`
+- `:PackerInstall`
 
 ## Lang-servers
 

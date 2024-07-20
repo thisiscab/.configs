@@ -3,8 +3,9 @@
 function setup() {
     setVimPluginManager 
     setupBrew 
-    setDotFiles
     setShell
+    setupZ4h
+    setDotFiles
     setAsdfVersionManager
     #
     #mkdir -p ~/src/personal/tmp
@@ -113,6 +114,8 @@ function setupBrew() {
     echo "Installing Homebrew ..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+    brew analytics off
+
     echo "Updating Homebrew ..."
     brew update --force
 
@@ -128,6 +131,17 @@ function setupBrew() {
     #     echo "Installing Work Homebrew stuff ... "
     #     /bin/bash /$HOME/src/.configs_work/brew_sudo.sh
     # fi
+}
+
+function setupZ4h() {
+    echo "Installing z4h ..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+    if command -v curl >/dev/null 2>&1; then
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+    else
+      sh -c "$(wget -O- https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+    fi
 
 }
 
