@@ -3,7 +3,7 @@
 function setup() {
     setupBrew
 
-    #configureMac
+    configureMac
 }
 
 function configureMac() {
