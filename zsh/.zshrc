@@ -1,105 +1,110 @@
-# Script to benchmark speed:
-# for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files sourced from it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-export GPG_TTY=$(tty)
-export DIRSTACKSIZE=9
-export HISTSIZE=10000               # number of lines kept in history
-export SAVEHIST=10000               # number of lines saved in the history after logout
-export HISTFILE=~/.zsh_history     # location of history
+# Periodic auto-update on Zsh startup: 'ask' or 'no'.
+# You can manually run `z4h update` to update everything.
+zstyle ':z4h:' auto-update      'ask'
+# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+zstyle ':z4h:' auto-update-days '28'
 
-export PATH=$HOME/bin:$PATH
-export PATH=$HOME/.bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
+# Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:bindkey' keyboard  'mac'
+ 
+# Start tmux if not already in tmux.
+zstyle ':z4h:' start-tmux command tmux -u new -A -D -t z4h
 
-export EDITOR=nvim
-export LANG="C"
+# Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
+zstyle ':z4h:' prompt-at-bottom 'no'
 
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_INSECURE_REDIRECT=1
-export HOMEBREW_CASK_OPTS="--require-sha --no-quarantine"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Mark up shell's output with semantic information.
+zstyle ':z4h:' term-shell-integration 'yes'
 
-# try to Fuzzy-match
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-zstyle ':completion::cd:' ignore-parents parent pwd # cd will never select the parent directory (e.g.: cd ../<TAB>)
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
+zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
-zstyle ':completion:*' menu select=2 # Highly selection in menu if nb items > 2
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Ignore case
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'   # Display the type of menu selection
-zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b' # Convenient error message if can do nothing
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'yes'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
 
-# setopt inc_append_history          # append command to history file once executed
-setopt histignoredups
-setopt histreduceblanks
-setopt promptsubst                 # enable colors to be displayed
-setopt share_history # share hist between sessions
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# SSH when connecting to these hosts.
+zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
 
-# setopt autocd               # automatically cd to a directory if not cmd
-setopt braceccl             # {a-d} expands to a b c d
-setopt always_to_end        # when completing from the middle of a word, move the cursor to the end of the word
-setopt complete_in_word     # allow completion from within a word/phrase
-setopt autopushd            # automatically pushd directories on dirstack
-setopt nopushdsilent        # print dirstack after each cd/pushd
-setopt pushdminus           # pushd -N goes to Nth dir in stack
-setopt pushdignoredups      # don't push dups on stack
-setopt cdablevars           # blah=~/media/movies; cd blah; pwd => ~/media/movies
-setopt correct              # try to correct spelling...
-setopt no_correctall        # ...only for commands, not filenames
-setopt listpacked           # variable col widths (takes up less space)
-# setopt auto_resume
-# setopt auto_cd
+# Send these files over to the remote host when connecting over SSH to the
+# enabled hosts.
+zstyle ':z4h:ssh:*' send-extra-files '~/.env.zsh'
 
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $(brew --prefix asdf)/libexec/asdf.sh
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+# z4h install ohmyzsh/ohmyzsh || return
 
-autoload -Uz colors && colors
-#autoload -Uz compinit && (compinit &)
-autoload -Uz compinit && compinit
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
 
-source $HOME/.zsh-theme
-source $HOME/.aliases
-source $HOME/.functions
+# Extend PATH.
+path=(~/bin $path)
 
+# Export environment variables.
+export GPG_TTY=$TTY
 
-# tmux_running=$(pgrep tmux)
-# if [[ -z $TMUX ]]; then
-#   tmuxinator default
-# fi
+# Source additional local files if they exist.
+z4h source ~/.env.zsh
 
-if [[ -f "$HOME/src/personal/.configs_personal/zsh/.aliases_personal" ]]; then
-  source $HOME/.aliases_personal
+# Use additional Git repositories pulled in with `z4h install`.
+#
+# This is just an example that you should delete. It does nothing useful.
+# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+
+# Define key bindings.
+z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
+z4h bindkey redo Option+/            # redo the last undone command line change
+
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+# Autoload functions.
+autoload -Uz zmv
+
+# Define functions and completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
+
+# Define named directories: ~w <=> Windows home directory on WSL.
+[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+
+# Define aliases.
+alias tree='tree -a -I .git'
+z4h source ~/.aliases
+z4h source ~/.functions
+z4h source ~/.functions_personal
+if [[ -n $HOMEBREW_PREFIX ]]; then
+  z4h source -- $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 fi
 
-if [[ -f "$HOME/src/personal/.configs_personal/zsh/.functions_personal" ]]; then
-  source $HOME/.functions_personal
-fi
+# Add flags to existing aliases.
+alias ls="${aliases[ls]:-ls} -A"
 
-if [[ -f "$HOME/src/personal/.configs_work/zsh/.aliases_work" ]]; then
-  source $HOME/.aliases_work
-fi
-
-if [[ -f "$HOME/src/personal/.configs_work/zsh/.functions_work" ]]; then
-  source $HOME/.functions_work
-fi
-
-# if [[ -f "$HOME/src/.configs/zsh/zsh-autosuggestions.zsh" ]]; then
-#   source $HOME/src/.configs/zsh/zsh-autosuggestions.zsh
-# fi
-
-eval "$(direnv hook zsh)"
-
-function zvm_after_init() {
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-  bindkey -s '^p' "tmux-sessionizer\n"
-}
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt glob_dots     # no special treatment for file names with a leading dot
+setopt auto_menu  # require an extra TAB press to open the completion menu
