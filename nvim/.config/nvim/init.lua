@@ -42,9 +42,7 @@ packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
     use "neovim/nvim-lspconfig"
-    use 'jose-elias-alvarez/null-ls.nvim'
-    use 'MunifTanjim/eslint.nvim'
-    -- use "editorconfig/editorconfig-vim"
+    use "editorconfig/editorconfig-vim"
 
     use {
 
@@ -82,7 +80,13 @@ packer.startup(function(use)
         config = function() require("thisiscab.neoformat") end
     }
 
-    use {"L3MON4D3/LuaSnip", run = "make install_jsregexp"}
+    use {
+      "L3MON4D3/LuaSnip", 
+      requires = {
+        "rafamadriz/friendly-snippets"
+      },
+      run = "make install_jsregexp"
+    }
 
     use {
         "hrsh7th/nvim-cmp",
@@ -110,23 +114,23 @@ packer.startup(function(use)
 
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
-    use {
-        requires = {"nvim-telescope/telescope.nvim"},
-        config = function() require("cder") end
-    }
+    -- use {
+    --     requires = {"nvim-telescope/telescope.nvim"},
+    --     config = function() require("cder") end
+    -- }
 
-    use {
-        "mattn/vim-gist",
-        requires = {"mattn/webapi-vim"},
-        config = function()
-            vim.cmd([[
-                let g:gist_clip_command = 'pbcopy'
-                let g:gist_detect_filetype = 1
-                let g:gist_post_private = 1
-            ]])
-        end
-
-    }
+    -- use {
+    --     "mattn/vim-gist",
+    --     requires = {"mattn/webapi-vim"},
+    --     config = function()
+    --         vim.cmd([[
+    --             let g:gist_clip_command = 'pbcopy'
+    --             let g:gist_detect_filetype = 1
+    --             let g:gist_post_private = 1
+    --         ]])
+    --     end
+    --
+    -- }
 
     use {
         "tpope/vim-fugitive",
@@ -134,11 +138,20 @@ packer.startup(function(use)
         requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
     }
 
-    use {"tomtom/tcomment_vim", event = "BufReadPre"}
+    use { "JoosepAlviste/nvim-ts-context-commentstring" }
+
+    use {
+      "terrortylor/nvim-comment", 
+      event = "BufReadPre",
+      requires = {
+            "JoosepAlviste/nvim-ts-context-commentstring"
+      },
+      config = function() require("thisiscab.comment") end
+    }
 
     use {"fatih/vim-go", ft = {"go"}}
 
-    use {"mpas/marp-nvim"}
+    -- use {"mpas/marp-nvim"}
 
     use {
         "iamcco/markdown-preview.nvim",
@@ -199,6 +212,12 @@ keymap.set("v", "<Leader>ss", ":sort u<CR>")
 keymap.set("v", "<Leader>SS", ":sort! u<CR>")
 
 keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
+
+keymap.set("n", "<leader>t", function()
+   vim.cmd("cd %:p:h")
+   vim.cmd("terminal")
+   vim.cmd("startinsert")
+end)
 
 -- autocmd Syntax * syntax keyword GreenMarker NOTE note
 -- autocmd Syntax * syntax keyword YellowMarker TODO todo

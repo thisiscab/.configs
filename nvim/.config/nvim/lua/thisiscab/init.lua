@@ -1,3 +1,4 @@
+require("thisiscab.comment")
 require("thisiscab.airline")
 require("thisiscab.fugitive")
 require("thisiscab.telescope")

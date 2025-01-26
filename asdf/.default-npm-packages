@@ -12,3 +12,4 @@ sql-language-server
 prettier
 eslint_d
 @fivetrandevelopers/dbt-language-server
+@tailwindcss/language-server

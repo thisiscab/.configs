@@ -30,6 +30,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias gserver="cd ~/src/work/chord/steward/node/apps/server"
     alias gts="cd ~/src/work/chord/steward/node/libs/typescript"
     alias gapi="cd ~/src/work/chord/steward/node/configs/api-contract"
+    alias gfr="cd /Users/eddy/src/sister/ideesdegeny/app/front-end"
     alias gcontract="gapi"
     alias goconfigs="gconfigs"
     alias goroot="groot"

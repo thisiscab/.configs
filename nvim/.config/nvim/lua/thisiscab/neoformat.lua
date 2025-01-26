@@ -17,7 +17,7 @@ g.neoformat_enabled_ruby = {"prettier"}
 
 g.neoformat_try_node_exe = 1
 g.neoformat_run_all_formatters = 1
-g.neoformat_enabled_typescript = {"eslint_d", "prettier"}
+g.neoformat_enabled_typescript = {"eslint", "prettier"}
 -- g.neoformat_enabled_typescript = {"prettier"}
 -- g.neoformat_enabled_typescript = {"denofmt"}
 -- g.neoformat_enabled_typescriptreact = {"denofmt"}

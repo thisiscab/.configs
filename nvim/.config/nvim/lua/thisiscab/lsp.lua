@@ -155,21 +155,22 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', "<leader>ts", vim.lsp.buf.signature_help, bufopts)
 end
 
-local null_ls = require("null-ls")
-local eslint = require("eslint")
-null_ls.setup()
-
-eslint.setup({
-  bin = 'eslint_d', -- or `eslint_d`
-  code_actions = {
-    enable = true,
-  },
-  diagnostics = {
-    enable = true,
-    report_unused_disable_directives = false,
-    run_on = "type", -- or `save`
-  },
-})
+-- requires for eslint to work
+-- local null_ls = require("null-ls")
+-- local eslint = require("eslint")
+-- null_ls.setup()
+--
+-- eslint.setup({
+--   bin = 'eslint', -- or `eslint_d`
+--   code_actions = {
+--     enable = true,
+--   },
+--   diagnostics = {
+--     enable = true,
+--     report_unused_disable_directives = false,
+--     run_on = "type", -- or `save`
+--   },
+-- })
 
 -- if not configs.dbtls then
 --     configs.dbtls = {
@@ -184,7 +185,7 @@ eslint.setup({
 --
 -- lspconfig.dbtls.setup{}
 
-lspconfig['tsserver'].setup {on_attach = on_attach}
+lspconfig['ts_ls'].setup {on_attach = on_attach}
 lspconfig['pyright'].setup {on_attach = on_attach}
 lspconfig['bashls'].setup {on_attach = on_attach}
 lspconfig['cssls'].setup {on_attach = on_attach}
@@ -195,7 +196,8 @@ lspconfig['html'].setup {on_attach = on_attach}
 lspconfig['terraformls'].setup {on_attach = on_attach}
 lspconfig['sqlls'].setup {on_attach = on_attach}
 lspconfig['gopls'].setup {on_attach = on_attach}
-
+lspconfig['tailwindcss'].setup {on_attach = on_attach}
+lspconfig['eslint'].setup {on_attach = on_attach}
 
 if not configs.helm_ls then
   configs.helm_ls = {
@@ -235,6 +237,7 @@ vim.diagnostic.config({
 --     }
 -- })
 require("luasnip.loaders.from_vscode").lazy_load()
+luasnip.filetype_extend("typescriptreact", { "html", "javascriptreact" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
