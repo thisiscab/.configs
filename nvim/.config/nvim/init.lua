@@ -62,11 +62,19 @@ packer.startup(function(use)
     use {
         "nvim-treesitter/nvim-treesitter",
         run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            local ts_update = require('nvim-treesitter.install').update({
+                with_sync = true
+            })
             ts_update()
         end,
         config = function() require("thisiscab.treesitter") end
     }
+
+    use({
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        after = "nvim-treesitter",
+        requires = "nvim-treesitter/nvim-treesitter"
+    })
 
     use {
         "hashivim/vim-terraform",
@@ -81,11 +89,9 @@ packer.startup(function(use)
     }
 
     use {
-      "L3MON4D3/LuaSnip", 
-      requires = {
-        "rafamadriz/friendly-snippets"
-      },
-      run = "make install_jsregexp"
+        "L3MON4D3/LuaSnip",
+        requires = {"rafamadriz/friendly-snippets"},
+        run = "make install_jsregexp"
     }
 
     use {
@@ -138,15 +144,13 @@ packer.startup(function(use)
         requires = {"tpope/vim-rhubarb", "shumphrey/fugitive-gitlab.vim"}
     }
 
-    use { "JoosepAlviste/nvim-ts-context-commentstring" }
+    use {"JoosepAlviste/nvim-ts-context-commentstring"}
 
     use {
-      "terrortylor/nvim-comment", 
-      event = "BufReadPre",
-      requires = {
-            "JoosepAlviste/nvim-ts-context-commentstring"
-      },
-      config = function() require("thisiscab.comment") end
+        "terrortylor/nvim-comment",
+        event = "BufReadPre",
+        requires = {"JoosepAlviste/nvim-ts-context-commentstring"},
+        config = function() require("thisiscab.comment") end
     }
 
     use {"fatih/vim-go", ft = {"go"}}
@@ -160,6 +164,13 @@ packer.startup(function(use)
         ft = {"markdown", "vim-plug"},
         config = function() require("thisiscab.markdown-preview") end
     }
+
+    use {
+        "supermaven-inc/supermaven-nvim",
+        config = function() require("supermaven-nvim").setup({}) end
+    }
+    use { 'jose-elias-alvarez/null-ls.nvim' }
+    use { 'MunifTanjim/eslint.nvim' }
 end)
 
 -- NeoFormat
@@ -214,9 +225,9 @@ keymap.set("v", "<Leader>SS", ":sort! u<CR>")
 keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
 
 keymap.set("n", "<leader>t", function()
-   vim.cmd("cd %:p:h")
-   vim.cmd("terminal")
-   vim.cmd("startinsert")
+    vim.cmd("cd %:p:h")
+    vim.cmd("terminal")
+    vim.cmd("startinsert")
 end)
 
 -- autocmd Syntax * syntax keyword GreenMarker NOTE note

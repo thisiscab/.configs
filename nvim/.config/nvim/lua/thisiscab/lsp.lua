@@ -71,7 +71,7 @@ cmp.setup({
     },
 
     sources = cmp.config.sources({{name = "nvim_lsp"}, {name = "luasnip"}}, {
-        {name = "calc"}, {name = "path"}, {name = "buffer"}
+        {name = "calc"}, {name = "path"}, {name = "buffer"},  { name = "supermaven" }
     })
 })
 
@@ -153,24 +153,24 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', "<leader>ta", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', "<leader>tr", vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', "<leader>ts", vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', "<leader>rr", vim.lsp.buf.rename, bufopts)
 end
 
 -- requires for eslint to work
--- local null_ls = require("null-ls")
--- local eslint = require("eslint")
--- null_ls.setup()
---
--- eslint.setup({
---   bin = 'eslint', -- or `eslint_d`
---   code_actions = {
---     enable = true,
---   },
---   diagnostics = {
---     enable = true,
---     report_unused_disable_directives = false,
---     run_on = "type", -- or `save`
---   },
--- })
+local null_ls = require("null-ls")
+local eslint = require("eslint")
+
+eslint.setup({
+  bin = 'eslint', -- or `eslint_d`
+  code_actions = {
+    enable = true,
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "type", -- or `save`
+  },
+})
 
 -- if not configs.dbtls then
 --     configs.dbtls = {
