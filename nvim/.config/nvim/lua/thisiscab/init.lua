@@ -1,6 +1,4 @@
 require("thisiscab.comment")
-require("thisiscab.airline")
-require("thisiscab.fugitive")
 require("thisiscab.telescope")
 require("thisiscab.treesitter")
 require("thisiscab.lsp")

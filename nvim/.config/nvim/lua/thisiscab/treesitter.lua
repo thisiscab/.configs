@@ -1,8 +1,8 @@
 local treesitterConfig = require("nvim-treesitter.configs")
 
 treesitterConfig.setup({
-    -- A list of parser names, or "all"
-    ensure_installed = "all",
+    -- Don't automatically install parsers to avoid tarball errors
+    ensure_installed = {},
 
     -- Install parsers synchronously
     sync_install = false,
@@ -124,8 +124,8 @@ require'nvim-treesitter.configs'.setup {
             -- Below will go to either the start or the end, whichever is closer.
             -- Use if you want more granular movements
             -- Make it even more gradual by adding multiple queries and regex.
-            goto_next = {["]d"] = "@conditional.outer"},
-            goto_previous = {["[d"] = "@conditional.outer"}
+            -- goto_next = {["]d"] = "@conditional.outer"},
+            -- goto_previous = {["[d"] = "@conditional.outer"}
         },
         swap = {
             enable = true,

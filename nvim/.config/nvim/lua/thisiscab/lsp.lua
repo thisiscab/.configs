@@ -84,15 +84,16 @@ cmp.setup.filetype("gitcommit", {
     }, {{name = "buffer"}})
 })
 
-cmp.setup.cmdline({"/", "?"}, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {{name = "buffer"}}
-})
-
-cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
-})
+-- Cmdline completion disabled due to regex parsing issues
+-- cmp.setup.cmdline({"/", "?"}, {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = {{name = "buffer"}}
+-- })
+-- 
+-- cmp.setup.cmdline(":", {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
+-- })
 
 -- local function config(_config)
 --     return vim.tbl_deep_extend("force", {
@@ -156,21 +157,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', "<leader>rr", vim.lsp.buf.rename, bufopts)
 end
 
--- requires for eslint to work
-local null_ls = require("null-ls")
-local eslint = require("eslint")
-
-eslint.setup({
-  bin = 'eslint', -- or `eslint_d`
-  code_actions = {
-    enable = true,
-  },
-  diagnostics = {
-    enable = true,
-    report_unused_disable_directives = false,
-    run_on = "type", -- or `save`
-  },
-})
+-- ESLint is now handled by nvim-lint and conform.nvim
 
 -- if not configs.dbtls then
 --     configs.dbtls = {
@@ -185,19 +172,41 @@ eslint.setup({
 --
 -- lspconfig.dbtls.setup{}
 
-lspconfig['ts_ls'].setup {on_attach = on_attach}
-lspconfig['pyright'].setup {on_attach = on_attach}
-lspconfig['bashls'].setup {on_attach = on_attach}
-lspconfig['cssls'].setup {on_attach = on_attach}
-lspconfig['dockerls'].setup {on_attach = on_attach}
-lspconfig['jsonls'].setup {on_attach = on_attach}
-lspconfig['vimls'].setup {on_attach = on_attach}
-lspconfig['html'].setup {on_attach = on_attach}
-lspconfig['terraformls'].setup {on_attach = on_attach}
-lspconfig['sqlls'].setup {on_attach = on_attach}
-lspconfig['gopls'].setup {on_attach = on_attach}
-lspconfig['tailwindcss'].setup {on_attach = on_attach}
-lspconfig['eslint'].setup {on_attach = on_attach}
+-- Set up Mason LSP config
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if mason_lspconfig_ok then
+  mason_lspconfig.setup_handlers({
+    function(server_name)
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = comp.default_capabilities(),
+      })
+    end,
+    ["lua_ls"] = function()
+      lspconfig.lua_ls.setup({
+        on_attach = on_attach,
+        capabilities = comp.default_capabilities(),
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+    end,
+  })
+end
 
 if not configs.helm_ls then
   configs.helm_ls = {
