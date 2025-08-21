@@ -205,6 +205,14 @@ if mason_lspconfig_ok then
         },
       })
     end,
+    ["ts_ls"] = function()
+      lspconfig.ts_ls.setup({
+        on_attach = on_attach,
+        capabilities = comp.default_capabilities(),
+        filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+      })
+    end,
   })
 end
 

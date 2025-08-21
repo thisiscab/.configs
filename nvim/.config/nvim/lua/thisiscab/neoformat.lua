@@ -15,10 +15,10 @@ g.neoformat_enabled_javascript = {"prettier"}
 g.neoformat_enabled_json = {"prettier"}
 g.neoformat_enabled_ruby = {"prettier"}
 
-g.neoformat_enabled_typescript = {"eslint_d"}
+-- g.neoformat_enabled_typescript = {"eslint_d"}
 -- g.neoformat_enabled_typescript = {"prettier"}
 -- g.neoformat_enabled_typescript = {"denofmt"}
-g.neoformat_enabled_typescriptreact = {"eslint_d", "prettier"}
+-- g.neoformat_enabled_typescriptreact = {"eslint_d", "prettier"}
 g.neoformat_enabled_vue = {"prettier"}
 g.neoformat_enabled_yaml = {"prettier"}
 g.neoformat_enabled_helm = {"prettier"}

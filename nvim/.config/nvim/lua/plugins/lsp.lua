@@ -23,7 +23,7 @@ return {
           "sqlls",
           "gopls",
           "tailwindcss",
-          "eslint",
+          -- "eslint",
           "lua_ls",
         },
       })
@@ -32,6 +32,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = { "mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+    event = { "BufReadPre", "BufNewFile" },
+    cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
     config = function()
       require("thisiscab.lsp")
     end,
@@ -105,61 +107,61 @@ return {
       })
     end,
   },
-  {
-    "mfussenegger/nvim-lint",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local lint = require("lint")
-      
-      -- Create a custom eslint_d linter that handles missing config gracefully
-      lint.linters.eslint_d_safe = vim.tbl_deep_extend("force", lint.linters.eslint_d, {
-        cmd = function()
-          -- Check if we're in a directory with ESLint config
-          local config_files = {
-            ".eslintrc.js", ".eslintrc.json", ".eslintrc.yml", ".eslintrc.yaml", 
-            ".eslintrc", "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs"
-          }
-          
-          for _, config_file in ipairs(config_files) do
-            if vim.fn.findfile(config_file, ".;") ~= "" then
-              return "eslint_d"
-            end
-          end
-          
-          -- Also check if package.json has eslintConfig
-          local package_json = vim.fn.findfile("package.json", ".;")
-          if package_json ~= "" then
-            local ok, content = pcall(vim.fn.readfile, package_json)
-            if ok and type(content) == "table" then
-              local json_str = table.concat(content, "\n")
-              if json_str:match('"eslintConfig"') then
-                return "eslint_d"
-              end
-            end
-          end
-          
-          -- Return a dummy command that does nothing if no config found
-          return "true"
-        end,
-      })
-      
-      lint.linters_by_ft = {
-        javascript = { "eslint_d_safe" },
-        typescript = { "eslint_d_safe" },
-        javascriptreact = { "eslint_d_safe" },
-        typescriptreact = { "eslint_d_safe" },
-        python = { "flake8" },
-        sh = { "shellcheck" },
-        bash = { "shellcheck" },
-      }
-      
-      local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-        group = lint_augroup,
-        callback = function()
-          lint.try_lint()
-        end,
-      })
-    end,
-  },
+  --   {
+  --    "mfussenegger/nvim-lint",
+  --    event = { "BufReadPre", "BufNewFile" },
+  --    config = function()
+  --      local lint = require("lint")
+  --
+  --      -- Create a custom eslint_d linter that handles missing config gracefully
+  --      lint.linters.eslint_d_safe = vim.tbl_deep_extend("force", lint.linters.eslint_d, {
+  --        cmd = function()
+  --          -- Check if we're in a directory with ESLint config
+  --          local config_files = {
+  --            ".eslintrc.js", ".eslintrc.json", ".eslintrc.yml", ".eslintrc.yaml",
+  --            ".eslintrc", "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs"
+  --          }
+  --
+  --          for _, config_file in ipairs(config_files) do
+  --            if vim.fn.findfile(config_file, ".;") ~= "" then
+  --              return "eslint_d"
+  --            end
+  --          end
+  --
+  --          -- Also check if package.json has eslintConfig
+  --          local package_json = vim.fn.findfile("package.json", ".;")
+  --          if package_json ~= "" then
+  --            local ok, content = pcall(vim.fn.readfile, package_json)
+  --            if ok and type(content) == "table" then
+  --              local json_str = table.concat(content, "\n")
+  --              if json_str:match('"eslintConfig"') then
+  --                return "eslint_d"
+  --              end
+  --            end
+  --          end
+  --
+  --          -- Return a dummy command that does nothing if no config found
+  --          return "true"
+  --        end,
+  --      })
+  --
+  --      lint.linters_by_ft = {
+  --        javascript = { "eslint_d_safe" },
+  --        typescript = { "eslint_d_safe" },
+  --        javascriptreact = { "eslint_d_safe" },
+  --        typescriptreact = { "eslint_d_safe" },
+  --        python = { "flake8" },
+  --        sh = { "shellcheck" },
+  --        bash = { "shellcheck" },
+  --      }
+  --
+  --      local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+  --      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  --        group = lint_augroup,
+  --        callback = function()
+  --          lint.try_lint()
+  --        end,
+  --      })
+  --    end,
+  --  },
 }
