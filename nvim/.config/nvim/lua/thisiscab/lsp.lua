@@ -174,7 +174,7 @@ end
 
 -- Set up Mason LSP config
 local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if mason_lspconfig_ok then
+if mason_lspconfig_ok and mason_lspconfig.setup_handlers then
   mason_lspconfig.setup_handlers({
     function(server_name)
       lspconfig[server_name].setup({
@@ -213,6 +213,51 @@ if mason_lspconfig_ok then
         root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
       })
     end,
+    ["eslint"] = function()
+      lspconfig.eslint.setup({
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+        capabilities = comp.default_capabilities(),
+      })
+    end,
+  })
+else
+  -- Fallback: manually setup LSP servers
+  local servers = { "ts_ls", "pyright", "bashls", "cssls", "dockerls", "jsonls", "vimls", "html", "terraformls", "sqlls", "gopls", "tailwindcss" }
+  
+  for _, server in ipairs(servers) do
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = comp.default_capabilities(),
+    })
+  end
+  
+  -- Special setup for lua_ls
+  lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+    capabilities = comp.default_capabilities(),
+    settings = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT",
+        },
+        diagnostics = {
+          globals = { "vim" },
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
   })
 end
 
@@ -231,6 +276,8 @@ end
 vim.diagnostic.config({
   virtual_text = false
 })
+
+
 
 -- require("lspconfig").sumneko_lua.setup({
 --     settings = {

@@ -1,12 +1,14 @@
 return {
   {
     "williamboman/mason.nvim",
+    lazy = false, -- Keep loaded for LSP functionality
     config = function()
       require("mason").setup()
     end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    lazy = false, -- Keep loaded for LSP functionality
     dependencies = { "mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
@@ -23,7 +25,7 @@ return {
           "sqlls",
           "gopls",
           "tailwindcss",
-          -- "eslint",
+          "eslint",
           "lua_ls",
         },
       })

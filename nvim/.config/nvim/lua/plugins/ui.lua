@@ -1,6 +1,7 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    lazy = false, -- Keep statusline loaded immediately
     config = function()
       require("lualine").setup({
         options = {

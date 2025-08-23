@@ -84,7 +84,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup("plugins", {
   defaults = {
-    lazy = true,  -- Enable lazy loading by default
+    lazy = false,  -- Don't lazy load by default to avoid filetype detection issues
     version = false,
   },
   install = { colorscheme = { "gruvbox-material" } },
