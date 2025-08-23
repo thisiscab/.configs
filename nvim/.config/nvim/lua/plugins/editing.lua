@@ -56,13 +56,5 @@ return {
     end,
   },
   
-  -- Multiple cursors
-  {
-    "mg979/vim-visual-multi",
-    keys = {
-      { "<C-n>", desc = "Select next occurrence" },
-      { "<C-Down>", desc = "Create cursor down" },
-      { "<C-Up>", desc = "Create cursor up" },
-    },
-  },
+  -- Multiple cursors (removed)
 }

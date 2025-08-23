@@ -154,7 +154,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', "<leader>ta", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', "<leader>tr", vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', "<leader>ts", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', "<leader>rr", vim.lsp.buf.rename, bufopts)
+    -- Removed <leader>rr rename binding (conflicts with reload config)
 end
 
 -- ESLint is now handled by nvim-lint and conform.nvim

@@ -3,18 +3,16 @@ local keymap = vim.keymap
 -- Better defaults
 keymap.set("n", "j", "gj")
 keymap.set("n", "k", "gk")
+-- Note: g0 should work by default to go to beginning of screen line
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "<C-d>", "<C-d>zz")
-keymap.set("n", "n", "nzzzv")
-keymap.set("n", "N", "Nzzzv")
+-- Using native search navigation for proper count display
 
 -- Better indenting
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
 
--- Move text up and down
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- Move text up and down (removed)
 keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==")
 keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==")
 keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi")
@@ -28,8 +26,7 @@ keymap.set("x", "p", [["_dP]])
 -- Clear search with <esc>
 keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>")
 
--- Save file
-keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>")
+-- Save file (removed)
 
 -- Better window navigation
 keymap.set("n", "<C-h>", "<C-w>h")

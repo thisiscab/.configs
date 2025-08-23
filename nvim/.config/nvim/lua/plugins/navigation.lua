@@ -4,18 +4,31 @@ return {
   -- Trouble for better diagnostics
   {
     "folke/trouble.nvim",
+    cmd = "Trouble",
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble" },
-      { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
-      { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
-      { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List" },
-      { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix" },
-      { "gR", "<cmd>TroubleToggle lsp_references<cr>", desc = "LSP References" },
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Trouble Diagnostics" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+      { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+      { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List" },
+      { "gR", "<cmd>Trouble lsp_references<cr>", desc = "LSP References" },
     },
     config = function()
       require("trouble").setup({
-        icons = false,
-        use_diagnostic_signs = false,
+        icons = {
+          indent = {
+            middle = " ",
+            last = " ",
+            top = " ",
+            ws = "  ",
+          },
+        },
+        modes = {
+          diagnostics = {
+            groups = {
+              { "filename", format = "{file_icon} {basename:Title} {count}" }
+            },
+          },
+        },
       })
     end,
   },

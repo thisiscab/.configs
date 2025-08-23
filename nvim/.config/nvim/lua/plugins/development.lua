@@ -23,14 +23,29 @@ return {
     end,
   },
   
-  -- Better code outline
+  -- Modern code outline
   {
-    "simrat39/symbols-outline.nvim",
+    "stevearc/aerial.nvim",
     keys = {
-      { "<leader>o", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" },
+      { "<leader>o", "<cmd>AerialToggle<cr>", desc = "Toggle Symbols Outline" },
     },
     config = function()
-      require("symbols-outline").setup()
+      require("aerial").setup({
+        backends = { "lsp", "treesitter", "markdown", "man" },
+        layout = {
+          max_width = { 40, 0.2 },
+          width = nil,
+          min_width = 10,
+          default_direction = "prefer_right",
+        },
+        show_guides = true,
+        guides = {
+          mid_item = "├─",
+          last_item = "└─",
+          nested_top = "│ ",
+          whitespace = "  ",
+        },
+      })
     end,
   },
   

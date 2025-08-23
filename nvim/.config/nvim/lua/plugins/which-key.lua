@@ -17,12 +17,44 @@ return {
             suggestions = 20,
           },
         },
+        icons = {
+          breadcrumb = "",
+          separator = "",
+          group = "",
+          ellipsis = "",
+          -- set to false to disable all mapping icons,
+          -- both those explicitly added in a mapping
+          -- and those from rules
+          mappings = false,
+          --- Set to `false` to disable keymap icons from rules
+          rules = false,
+          -- use the highlights from mini.icons
+          -- When `false`, it will use `WhichKeyIcon` instead
+          colors = false,
+          -- used by key format - disable all special key icons
+          keys = {
+            Up = "Up",
+            Down = "Down", 
+            Left = "Left",
+            Right = "Right",
+            C = "C-",
+            M = "M-",
+            D = "D-",
+            S = "S-",
+            CR = "CR",
+            Esc = "Esc",
+            ScrollWheelDown = "ScrollDown",
+            ScrollWheelUp = "ScrollUp", 
+            NL = "NL",
+            BS = "BS",
+            Space = "Space",
+            Tab = "Tab",
+            F1 = "F1", F2 = "F2", F3 = "F3", F4 = "F4", F5 = "F5", F6 = "F6",
+            F7 = "F7", F8 = "F8", F9 = "F9", F10 = "F10", F11 = "F11", F12 = "F12",
+          },
+        },
         win = {
           border = "rounded",
-          position = "bottom",
-          margin = { 1, 0, 1, 0 },
-          padding = { 2, 2, 2, 2 },
-          winblend = 0
         },
         layout = {
           height = { min = 4, max = 25 },
@@ -66,21 +98,26 @@ return {
           { "<leader>tr", vim.lsp.buf.references, desc = "References" },
           { "<leader>ts", vim.lsp.buf.signature_help, desc = "Signature Help" },
           
-          -- Buffer
-          { "<leader>b", group = "Buffer" },
+          -- Build/Tasks & Buffers
+          { "<leader>b", group = "Build/Tasks & Buffers" },
+          { "<leader>bb", "<cmd>OverseerToggle<cr>", desc = "Toggle Task Runner" },
+          { "<leader>br", "<cmd>OverseerRun<cr>", desc = "Run Task" },
+          { "<leader>ba", "<cmd>OverseerTaskAction<cr>", desc = "Task Actions" },
+          { "<leader>bc", "<cmd>OverseerClearCache<cr>", desc = "Clear Task Cache" },
+          { "<leader>bo", "<cmd>OverseerToggle<cr>", desc = "Toggle Output Panel" },
           { "<leader>bq", "<cmd>bp <BAR> bd #<cr>", desc = "Close Buffer" },
           
           -- Replace/Reload
           { "<leader>r", group = "Replace/Reload" },
           { "<leader>rt", group = "Remove Trailing" },
           { "<leader>rtw", ":%s/\\s\\+$//e<cr>", desc = "Remove Trailing Whitespace" },
-          { "<leader>rr", "<cmd>source $MYVIMRC<cr>", desc = "Reload Config" },
+          { "<leader>rr", vim.lsp.buf.rename, desc = "Rename Symbol" },
           
           -- Misc
           { "<leader>m", group = "Misc" },
           { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
           
-          -- Navigation
+          -- Buffer Navigation  
           { "<leader>k", "<cmd>bnext<cr>", desc = "Next Buffer" },
           { "<leader>j", "<cmd>bprevious<cr>", desc = "Previous Buffer" },
           { "<leader>l", "<cmd>b#<cr>", desc = "Last Buffer" },

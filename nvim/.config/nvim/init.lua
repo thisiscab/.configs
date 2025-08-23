@@ -39,6 +39,23 @@ opt.infercase = true
 opt.smartcase = true
 opt.hlsearch = true
 opt.incsearch = true
+-- Show search count message when searching
+opt.shortmess:remove("S")
+
+-- Force search count update after search navigation
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  pattern = { "/", "?" },
+  callback = function()
+    vim.schedule(function()
+      if vim.v.hlsearch == 1 then
+        local ok, result = pcall(vim.fn.searchcount, { recompute = 1 })
+        if ok and result and result.total and result.total > 0 then
+          vim.api.nvim_echo({{string.format("[%d/%d]", result.current, result.total), "Search"}}, false, {})
+        end
+      end
+    end)
+  end,
+})
 
 -- UI
 opt.wrap = false
@@ -150,3 +167,22 @@ keymap.set("n", "<leader>t", function()
     vim.cmd("terminal")
     vim.cmd("startinsert")
 end)
+
+-- Git commit settings
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "gitrebase" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+    vim.opt_local.textwidth = 72
+    vim.opt_local.colorcolumn = "50,72"
+  end,
+})
+
+-- Ensure git commit messages get proper highlighting
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = { "COMMIT_EDITMSG", "MERGE_MSG", "*.git/COMMIT_EDITMSG" },
+  callback = function()
+    vim.bo.filetype = "gitcommit"
+  end,
+})
