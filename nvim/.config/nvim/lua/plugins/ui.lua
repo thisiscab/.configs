@@ -54,7 +54,7 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
-        extensions = { "fugitive", "nvim-tree", "telescope" },
+        extensions = { "fugitive", "nvim-tree" },
       })
     end,
   },
