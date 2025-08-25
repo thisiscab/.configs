@@ -48,6 +48,18 @@ return {
         },
       })
       
+      -- Set window navigation keymaps for overseer buffers
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "OverseerList",
+        callback = function()
+          local opts = { buffer = true }
+          vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
+          vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
+          vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
+          vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
+        end,
+      })
+      
       -- Ensure we override vim.ui.select with telescope AFTER overseer loads
       vim.schedule(function()
         -- Force telescope ui-select to be used

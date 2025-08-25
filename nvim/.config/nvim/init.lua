@@ -44,17 +44,21 @@ opt.shortmess:remove("S")
 
 -- Force search count update after search navigation
 vim.api.nvim_create_autocmd("CmdlineLeave", {
-  pattern = { "/", "?" },
-  callback = function()
-    vim.schedule(function()
-      if vim.v.hlsearch == 1 then
-        local ok, result = pcall(vim.fn.searchcount, { recompute = 1 })
-        if ok and result and result.total and result.total > 0 then
-          vim.api.nvim_echo({{string.format("[%d/%d]", result.current, result.total), "Search"}}, false, {})
-        end
-      end
-    end)
-  end,
+	pattern = { "/", "?" },
+	callback = function()
+		vim.schedule(function()
+			if vim.v.hlsearch == 1 then
+				local ok, result = pcall(vim.fn.searchcount, { recompute = 1 })
+				if ok and result and result.total and result.total > 0 then
+					vim.api.nvim_echo(
+						{ { string.format("[%d/%d]", result.current, result.total), "Search" } },
+						false,
+						{}
+					)
+				end
+			end
+		end)
+	end,
 })
 
 -- UI
@@ -79,56 +83,56 @@ opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 opt.splitright = true
 opt.splitbelow = true
 
-vim.cmd('set iskeyword+=-')
+vim.cmd("set iskeyword+=-")
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup("plugins", {
-  defaults = {
-    lazy = false,  -- Don't lazy load by default to avoid filetype detection issues
-    version = false,
-  },
-  install = { colorscheme = { "gruvbox-material" } },
-  checker = { 
-    enabled = true,
-    notify = false,
-  },
-  change_detection = {
-    notify = false,
-  },
-  performance = {
-    cache = {
-      enabled = true,
-    },
-    rtp = {
-      disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
-    },
-  },
+	defaults = {
+		lazy = false, -- Don't lazy load by default to avoid filetype detection issues
+		version = false,
+	},
+	install = { colorscheme = { "gruvbox-material" } },
+	checker = {
+		enabled = true,
+		notify = false,
+	},
+	change_detection = {
+		notify = false,
+	},
+	performance = {
+		cache = {
+			enabled = true,
+		},
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })
 
 -- Load configurations
@@ -160,29 +164,30 @@ keymap.set("n", "<Leader>SS", "vip:sort! u<CR>")
 keymap.set("v", "<Leader>ss", ":sort u<CR>")
 keymap.set("v", "<Leader>SS", ":sort! u<CR>")
 
-keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
+-- keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
 
 keymap.set("n", "<leader>t", function()
-    vim.cmd("cd %:p:h")
-    vim.cmd("terminal")
-    vim.cmd("startinsert")
+	vim.cmd("cd %:p:h")
+	vim.cmd("terminal")
+	vim.cmd("startinsert")
 end)
 
 -- Git commit settings
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "gitcommit", "gitrebase" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-    vim.opt_local.textwidth = 72
-    vim.opt_local.colorcolumn = "50,72"
-  end,
+	pattern = { "gitcommit", "gitrebase" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+		vim.opt_local.textwidth = 72
+		vim.opt_local.colorcolumn = "50,72"
+	end,
 })
 
 -- Ensure git commit messages get proper highlighting
 vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = { "COMMIT_EDITMSG", "MERGE_MSG", "*.git/COMMIT_EDITMSG" },
-  callback = function()
-    vim.bo.filetype = "gitcommit"
-  end,
+	pattern = { "COMMIT_EDITMSG", "MERGE_MSG", "*.git/COMMIT_EDITMSG" },
+	callback = function()
+		vim.bo.filetype = "gitcommit"
+	end,
 })
+

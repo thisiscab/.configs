@@ -136,3 +136,41 @@ function ogit() {
 function gopen() {
     open $(git_origin_url)
 }
+
+# ############################## #
+#       Theme Toggle Functions
+# ############################## #
+
+function light() {
+    # Set light theme for terminals that support it
+    export THEME_MODE="light"
+    
+    # Update vim theme via socket if available
+    if command -v nvim >/dev/null 2>&1; then
+        for server in $(nvim --serverlist 2>/dev/null); do
+            nvim --server "$server" --remote-send '<Esc>:set background=light<CR>' 2>/dev/null || true
+        done
+    fi
+    
+    # Set light theme for new terminal sessions
+    echo "export THEME_MODE=light" > ~/.theme_mode
+    
+    echo "Light theme activated. Restart terminal or open new sessions to see full effect."
+}
+
+function dark() {
+    # Set dark theme
+    export THEME_MODE="dark"
+    
+    # Update vim theme via socket if available  
+    if command -v nvim >/dev/null 2>&1; then
+        for server in $(nvim --serverlist 2>/dev/null); do
+            nvim --server "$server" --remote-send '<Esc>:set background=dark<CR>' 2>/dev/null || true
+        done
+    fi
+    
+    # Set dark theme for new terminal sessions
+    echo "export THEME_MODE=dark" > ~/.theme_mode
+    
+    echo "Dark theme activated. Restart terminal or open new sessions to see full effect."
+}

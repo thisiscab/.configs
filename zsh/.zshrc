@@ -68,6 +68,9 @@ export GPG_TTY=$TTY
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
 
+# Load theme preference
+[[ -f ~/.theme_mode ]] && source ~/.theme_mode
+
 # Use additional Git repositories pulled in with `z4h install`.
 #
 # This is just an example that you should delete. It does nothing useful.
