@@ -42,24 +42,24 @@ opt.incsearch = true
 -- Show search count message when searching
 opt.shortmess:remove("S")
 
--- Force search count update after search navigation
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-	pattern = { "/", "?" },
-	callback = function()
-		vim.schedule(function()
-			if vim.v.hlsearch == 1 then
-				local ok, result = pcall(vim.fn.searchcount, { recompute = 1 })
-				if ok and result and result.total and result.total > 0 then
-					vim.api.nvim_echo(
-						{ { string.format("[%d/%d]", result.current, result.total), "Search" } },
-						false,
-						{}
-					)
-				end
-			end
-		end)
-	end,
-})
+-- -- Force search count update after search navigation
+-- vim.api.nvim_create_autocmd("CmdlineLeave", {
+-- 	pattern = { "/", "?" },
+-- 	callback = function()
+-- 		vim.schedule(function()
+-- 			if vim.v.hlsearch == 1 then
+-- 				local ok, result = pcall(vim.fn.searchcount, { recompute = 1 })
+-- 				if ok and result and result.total and result.total > 0 then
+-- 					vim.api.nvim_echo(
+-- 						{ { string.format("[%d/%d]", result.current, result.total), "Search" } },
+-- 						false,
+-- 						{}
+-- 					)
+-- 				end
+-- 			end
+-- 		end)
+-- 	end,
+-- })
 
 -- UI
 opt.wrap = false
@@ -166,11 +166,11 @@ keymap.set("v", "<Leader>SS", ":sort! u<CR>")
 
 -- keymap.set("n", "<leader>rr", ":source $MYVIMRC<CR>")
 
-keymap.set("n", "<leader>t", function()
-	vim.cmd("cd %:p:h")
-	vim.cmd("terminal")
-	vim.cmd("startinsert")
-end)
+-- keymap.set("n", "<leader>t", function()
+-- 	vim.cmd("cd %:p:h")
+-- 	vim.cmd("terminal")
+-- 	vim.cmd("startinsert")
+-- end)
 
 -- Git commit settings
 vim.api.nvim_create_autocmd("FileType", {
@@ -190,4 +190,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		vim.bo.filetype = "gitcommit"
 	end,
 })
-
