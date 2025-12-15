@@ -27,6 +27,7 @@ return {
           "tailwindcss",
           "eslint",
           "lua_ls",
+          "astro",
         },
       })
     end,
@@ -97,6 +98,7 @@ return {
           markdown = { "prettierd", "prettier", stop_after_first = true },
           graphql = { "prettierd", "prettier", stop_after_first = true },
           handlebars = { "prettier" },
+          astro = { "prettierd", "prettier", stop_after_first = true },
           sh = { "shfmt" },
           bash = { "shfmt" },
           go = { "gofmt" },

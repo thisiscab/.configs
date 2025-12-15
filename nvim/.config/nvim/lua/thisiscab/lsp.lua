@@ -223,6 +223,20 @@ if mason_lspconfig_ok and mason_lspconfig.setup_handlers then
           })
         end,
         capabilities = comp.default_capabilities(),
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "astro" },
+      })
+    end,
+    ["astro"] = function()
+      lspconfig.astro.setup({
+        on_attach = on_attach,
+        capabilities = comp.default_capabilities(),
+      })
+    end,
+    ["tailwindcss"] = function()
+      lspconfig.tailwindcss.setup({
+        on_attach = on_attach,
+        capabilities = comp.default_capabilities(),
+        filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "astro" },
       })
     end,
   })
